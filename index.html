@@ -617,14 +617,26 @@
   </p>
 
   <div class="cat-tabs" id="catTabs">
-    <button class="cat-tab active" data-cat="전체" data-i18n="cat_all">전체</button>
-    <button class="cat-tab" data-cat="면류"      data-i18n="cat_noodles">면류</button>
-    <button class="cat-tab" data-cat="소스/양념"  data-i18n="cat_sauce">소스/양념</button>
-    <button class="cat-tab" data-cat="음료/커피"  data-i18n="cat_drink">음료/커피</button>
-    <button class="cat-tab" data-cat="냉동식품"  data-i18n="cat_frozen">냉동식품</button>
-    <button class="cat-tab" data-cat="신선식품"  data-i18n="cat_fresh">신선식품</button>
-    <button class="cat-tab" data-cat="스낵/과자"  data-i18n="cat_snack">스낵/과자</button>
-    <button class="cat-tab" data-cat="기타"      data-i18n="cat_etc">기타</button>
+    <button class="cat-tab active" data-cat="전체"    data-i18n="cat_all">전체</button>
+    <button class="cat-tab" data-cat="면_라면"        data-i18n="cat_noodles">면/라면</button>
+    <button class="cat-tab" data-cat="소스"           data-i18n="cat_sauce">소스</button>
+    <button class="cat-tab" data-cat="통조림"         data-i18n="cat_canned">통조림</button>
+    <button class="cat-tab" data-cat="조미료"         data-i18n="cat_seasoning">조미료</button>
+    <button class="cat-tab" data-cat="유제품"         data-i18n="cat_dairy">유제품</button>
+    <button class="cat-tab" data-cat="스낵_절임"      data-i18n="cat_snack">스낵/절임</button>
+    <button class="cat-tab" data-cat="음료_커피"      data-i18n="cat_drink">음료/커피</button>
+    <button class="cat-tab" data-cat="과일"           data-i18n="cat_fruit">과일</button>
+    <button class="cat-tab" data-cat="채소"           data-i18n="cat_veg">채소</button>
+    <button class="cat-tab" data-cat="육류"           data-i18n="cat_meat">육류</button>
+    <button class="cat-tab" data-cat="해산물"         data-i18n="cat_seafood">해산물</button>
+    <button class="cat-tab" data-cat="생활용품"       data-i18n="cat_living">생활용품</button>
+    <button class="cat-tab" data-cat="의류"           data-i18n="cat_clothes">의류</button>
+    <button class="cat-tab" data-cat="뷰티"           data-i18n="cat_beauty">뷰티</button>
+    <button class="cat-tab" data-cat="전자"           data-i18n="cat_elec">전자</button>
+    <button class="cat-tab" data-cat="반찬"           data-i18n="cat_sidedish">반찬</button>
+    <button class="cat-tab" data-cat="주류"           data-i18n="cat_alcohol">주류</button>
+    <button class="cat-tab" data-cat="건기식"         data-i18n="cat_health">건기식</button>
+    <button class="cat-tab" data-cat="냉동_냉장"      data-i18n="cat_frozen">냉동/냉장</button>
   </div>
 
   <div id="productsGrid" class="products-grid">
@@ -835,9 +847,13 @@ const i18n = {
     products_label: 'Products', products_title: '상품 목록',
     products_desc: '동남아 인기 상품을 카테고리별로 둘러보세요.',
     products_loading: '상품을 불러오는 중...',
-    cat_all: '전체', cat_noodles: '면류', cat_sauce: '소스/양념',
-    cat_drink: '음료/커피', cat_frozen: '냉동식품', cat_fresh: '신선식품',
-    cat_snack: '스낵/과자', cat_etc: '기타',
+    cat_all: '전체', cat_noodles: '면/라면', cat_sauce: '소스',
+    cat_canned: '통조림', cat_seasoning: '조미료', cat_dairy: '유제품',
+    cat_snack: '스낵/절임', cat_drink: '음료/커피', cat_fruit: '과일',
+    cat_veg: '채소', cat_meat: '육류', cat_seafood: '해산물',
+    cat_living: '생활용품', cat_clothes: '의류', cat_beauty: '뷰티',
+    cat_elec: '전자', cat_sidedish: '반찬', cat_alcohol: '주류',
+    cat_health: '건기식', cat_frozen: '냉동/냉장',
     gallery_label: 'Gallery', gallery_title: '매장 갤러리',
     gallery_desc: '브이마트의 다양한 상품과 매장 모습을 확인하세요.',
     gal1: '매장 전경', gal2: '신선 야채 & 과일', gal3: '라면 & 누들 코너',
@@ -874,9 +890,13 @@ const i18n = {
     products_label: 'Products', products_title: 'Product List',
     products_desc: 'Browse our Southeast Asian grocery selection by category.',
     products_loading: 'Loading products...',
-    cat_all: 'All', cat_noodles: 'Noodles', cat_sauce: 'Sauce & Seasoning',
-    cat_drink: 'Drinks & Coffee', cat_frozen: 'Frozen', cat_fresh: 'Fresh',
-    cat_snack: 'Snacks', cat_etc: 'Other',
+    cat_all: 'All', cat_noodles: 'Noodles', cat_sauce: 'Sauce',
+    cat_canned: 'Canned', cat_seasoning: 'Seasoning', cat_dairy: 'Dairy',
+    cat_snack: 'Snacks/Pickled', cat_drink: 'Drinks & Coffee', cat_fruit: 'Fruit',
+    cat_veg: 'Vegetables', cat_meat: 'Meat', cat_seafood: 'Seafood',
+    cat_living: 'Household', cat_clothes: 'Clothing', cat_beauty: 'Beauty',
+    cat_elec: 'Electronics', cat_sidedish: 'Side Dishes', cat_alcohol: 'Alcohol',
+    cat_health: 'Health Food', cat_frozen: 'Frozen & Chilled',
     gallery_label: 'Gallery', gallery_title: 'Store Gallery',
     gallery_desc: 'Take a look inside V-Mart.',
     gal1: 'Store Exterior', gal2: 'Fresh Produce', gal3: 'Noodle Aisle',
@@ -913,9 +933,13 @@ const i18n = {
     products_label: 'Sản phẩm', products_title: 'Danh sách sản phẩm',
     products_desc: 'Khám phá các sản phẩm Đông Nam Á theo danh mục.',
     products_loading: 'Đang tải sản phẩm...',
-    cat_all: 'Tất cả', cat_noodles: 'Mì các loại', cat_sauce: 'Nước chấm & Gia vị',
-    cat_drink: 'Đồ uống & Cà phê', cat_frozen: 'Đông lạnh', cat_fresh: 'Tươi sống',
-    cat_snack: 'Bánh kẹo', cat_etc: 'Khác',
+    cat_all: 'Tất cả', cat_noodles: 'Mì/Bún', cat_sauce: 'Nước chấm',
+    cat_canned: 'Đồ hộp', cat_seasoning: 'Gia vị', cat_dairy: 'Sữa & Phô mai',
+    cat_snack: 'Bánh kẹo/Dưa muối', cat_drink: 'Đồ uống & Cà phê', cat_fruit: 'Trái cây',
+    cat_veg: 'Rau củ', cat_meat: 'Thịt', cat_seafood: 'Hải sản',
+    cat_living: 'Đồ gia dụng', cat_clothes: 'Quần áo', cat_beauty: 'Làm đẹp',
+    cat_elec: 'Điện tử', cat_sidedish: 'Món phụ', cat_alcohol: 'Đồ uống có cồn',
+    cat_health: 'Thực phẩm chức năng', cat_frozen: 'Đông lạnh & Ướp lạnh',
     gallery_label: 'Hình ảnh', gallery_title: 'Hình ảnh cửa hàng',
     gallery_desc: 'Khám phá không gian V-Mart qua ảnh.',
     gal1: 'Mặt tiền cửa hàng', gal2: 'Rau củ tươi', gal3: 'Kệ mì',
@@ -952,9 +976,13 @@ const i18n = {
     products_label: 'สินค้า', products_title: 'รายการสินค้า',
     products_desc: 'เลือกชมสินค้าเอเชียตะวันออกเฉียงใต้ตามหมวดหมู่',
     products_loading: 'กำลังโหลดสินค้า...',
-    cat_all: 'ทั้งหมด', cat_noodles: 'บะหมี่/เส้น', cat_sauce: 'ซอส/เครื่องปรุง',
-    cat_drink: 'เครื่องดื่ม/กาแฟ', cat_frozen: 'อาหารแช่แข็ง', cat_fresh: 'ของสด',
-    cat_snack: 'ขนม/สแนก', cat_etc: 'อื่นๆ',
+    cat_all: 'ทั้งหมด', cat_noodles: 'บะหมี่/เส้น', cat_sauce: 'ซอส',
+    cat_canned: 'อาหารกระป๋อง', cat_seasoning: 'เครื่องปรุง', cat_dairy: 'นม & ชีส',
+    cat_snack: 'ขนม/ดอง', cat_drink: 'เครื่องดื่ม/กาแฟ', cat_fruit: 'ผลไม้',
+    cat_veg: 'ผัก', cat_meat: 'เนื้อสัตว์', cat_seafood: 'อาหารทะเล',
+    cat_living: 'ของใช้ในบ้าน', cat_clothes: 'เสื้อผ้า', cat_beauty: 'ความงาม',
+    cat_elec: 'อิเล็กทรอนิกส์', cat_sidedish: 'กับข้าว', cat_alcohol: 'เครื่องดื่มแอลกอฮอล์',
+    cat_health: 'อาหารเสริม', cat_frozen: 'แช่แข็ง/แช่เย็น',
     gallery_label: 'แกลเลอรี', gallery_title: 'ภาพร้านค้า',
     gallery_desc: 'ชมบรรยากาศและสินค้าภายใน V-Mart',
     gal1: 'หน้าร้าน', gal2: 'ผัก/ผลไม้สด', gal3: 'โซนบะหมี่',
