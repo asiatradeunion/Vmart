@@ -469,10 +469,11 @@
     /* ─── Responsive ──────────────────────────────────────────── */
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .lang-switcher { display: none; }
+      .lang-switcher { display: flex; padding: 2px 4px; gap: 2px; }
+      .lang-btn { font-size: 11px; padding: 2px 4px; }
       .nav-hamburger { display: flex; }
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .about-badge { bottom: 8px; right: 8px; }
+      .about-badge { display: none; }
       .contact-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     }
