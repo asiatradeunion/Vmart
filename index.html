@@ -726,7 +726,7 @@
         </div>
         <div class="info-card" style="background:var(--red); border:none;">
           <div style="width:100%;">
-            <p class="info-label" style="margin-bottom:12px; color:rgba(255,255,255,0.7);">SNS &amp; 채널</p>
+            <p class="info-label" style="margin-bottom:12px; color:rgba(255,255,255,0.7);" data-i18n="sns_label">SNS &amp; 채널</p>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
               <style>
                 .sns-btn { display:flex; align-items:center; gap:8px; padding:10px 18px; border-radius:10px; border:2px solid rgba(255,255,255,0.4); background:rgba(255,255,255,0.15); font-size:14px; font-weight:600; color:white; cursor:pointer; text-decoration:none; transition:all .2s; }
@@ -735,17 +735,17 @@
                 .sns-btn.insta:hover { background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); border-color:transparent; }
                 .sns-btn.facebook:hover { background:#1877F2; border-color:#1877F2; }
               </style>
-              <a href="#" class="sns-btn kakao">
+              <a href="https://open.kakao.com/o/pFNbFUxi" target="_blank" class="sns-btn kakao">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.568 4.938 3.938 6.318L5 21l4.188-2.188C9.762 18.938 10.872 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
-                카카오톡
+                <span data-i18n="sns_kakao">카카오톡</span>
               </a>
-              <a href="#" class="sns-btn insta">
+              <a href="https://instagram.com/vmart_jeonju" target="_blank" class="sns-btn insta">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                인스타그램
+                <span data-i18n="sns_insta">인스타그램</span>
               </a>
-              <a href="#" class="sns-btn facebook">
+              <a href="https://www.facebook.com/Vmart.kr" target="_blank" class="sns-btn facebook">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                페이스북
+                <span data-i18n="sns_facebook">페이스북</span>
               </a>
             </div>
           </div>
@@ -886,6 +886,7 @@ const i18n = {
     info_phone_label: '전화번호', info_phone: '연락처 입력 예정',
     info_hours_label: '영업 시간', info_hours: '매일 08:00 ~ 21:30 (연중무휴)',
     info_kakao: '카카오 채널 준비 중',
+    sns_label: 'SNS & 채널', sns_kakao: '카카오톡', sns_insta: '인스타그램', sns_facebook: '페이스북',
     form_title: '도소매 & 일반 문의', form_name: '이름 / 회사명',
     form_phone: '연락처', form_email: '이메일', form_msg: '문의 내용',
     form_type: '문의 유형', form_type_general: '일반 문의',
@@ -929,6 +930,7 @@ const i18n = {
     info_phone_label: 'Phone', info_phone: 'Coming soon',
     info_hours_label: 'Hours', info_hours: 'Daily 08:00 – 21:30 (Open all year)',
     info_kakao: 'KakaoTalk channel coming soon',
+    sns_label: 'SNS & Channels', sns_kakao: 'KakaoTalk', sns_insta: 'Instagram', sns_facebook: 'Facebook',
     form_title: 'Wholesale & General Inquiry', form_name: 'Name / Company',
     form_phone: 'Phone', form_email: 'Email', form_msg: 'Message',
     form_type: 'Inquiry Type', form_type_general: 'General',
@@ -972,6 +974,7 @@ const i18n = {
     info_phone_label: 'Điện thoại', info_phone: 'Sắp cập nhật',
     info_hours_label: 'Giờ mở cửa', info_hours: 'Hàng ngày 08:00 – 21:30 (Cả năm)',
     info_kakao: 'Kênh Zalo / KakaoTalk sắp ra mắt',
+    sns_label: 'MXH & Kênh', sns_kakao: 'KakaoTalk', sns_insta: 'Instagram', sns_facebook: 'Facebook',
     form_title: 'Liên hệ & Hỏi hàng sỉ', form_name: 'Họ tên / Công ty',
     form_phone: 'Số điện thoại', form_email: 'Email', form_msg: 'Nội dung',
     form_type: 'Loại yêu cầu', form_type_general: 'Thông thường',
@@ -1015,6 +1018,7 @@ const i18n = {
     info_phone_label: 'โทรศัพท์', info_phone: 'กำลังอัปเดต',
     info_hours_label: 'เวลาทำการ', info_hours: 'ทุกวัน 08:00 – 21:30 (ตลอดปี)',
     info_kakao: 'ช่อง LINE / KakaoTalk เร็วๆ นี้',
+    sns_label: 'โซเชียล & ช่องทาง', sns_kakao: 'คาคาโอทอล์ก', sns_insta: 'อินสตาแกรม', sns_facebook: 'เฟซบุ๊ก',
     form_title: 'ติดต่อ & สอบถามการขายส่ง', form_name: 'ชื่อ / บริษัท',
     form_phone: 'เบอร์โทร', form_email: 'อีเมล', form_msg: 'ข้อความ',
     form_type: 'ประเภท', form_type_general: 'สอบถามทั่วไป',
