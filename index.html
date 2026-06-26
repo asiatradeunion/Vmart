@@ -496,8 +496,10 @@
       }
       .cat-tabs::-webkit-scrollbar { display: none; }
       .cat-tab { flex-shrink: 0; }
-      /* SNS 버튼 3개 한 줄 */
-      .sns-btn { padding: 8px 12px; font-size: 13px; gap: 6px; flex: 1; justify-content: center; }
+      /* SNS 버튼 모바일 최적화 */
+      .sns-btn { padding: 14px 16px; font-size: 13px; gap: 6px; flex: 1; justify-content: center; min-width: 0; }
+      .sns-btn span { display: none; }
+      .sns-btn svg { width: 28px; height: 28px; }
     }
     @media (max-width: 600px) {
       section { padding: 60px 5%; }
