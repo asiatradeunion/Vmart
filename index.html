@@ -91,7 +91,31 @@
     }
     .lang-btn:hover:not(.active) { color: var(--red); }
 
-    /* Hamburger */
+    /* ─── Hero Feature Cards (PC 전용) ─────────────────────────── */
+    .hero-feature-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: absolute;
+      bottom: 32px;
+      left: 5%;
+      right: 5%;
+    }
+    .hero-feat-card {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      backdrop-filter: blur(4px);
+    }
+    .hero-feat-icon { font-size: 22px; flex-shrink: 0; }
+    .hero-feat-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .hero-feat-desc { font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
       width: 24px; padding: 4px 0;
@@ -128,7 +152,7 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #7a0016 0%, var(--red-dark) 30%, var(--red) 65%, #d63a20 85%, #e8722a 100%);
       display: flex; align-items: center;
-      padding: calc(var(--nav-h) + 40px) 5% 80px;
+      padding: calc(var(--nav-h) + 40px) 5% 180px;
       position: relative; overflow: hidden;
     }
     #home::before {
@@ -474,6 +498,7 @@
 
     /* ─── Responsive ──────────────────────────────────────────── */
     @media (max-width: 900px) {
+      .hero-feature-cards { display: none; }
       .nav-links { display: none; }
       .lang-switcher { display: flex; padding: 2px 4px; gap: 2px; margin-left: auto; margin-right: 8px; }
       .lang-btn { font-size: 11px; padding: 2px 4px; }
@@ -567,6 +592,38 @@
     </div>
   </div>
   <div class="hero-deco" aria-hidden="true">V</div>
+
+  <!-- PC 전용 마트 소개 카드 -->
+  <div class="hero-feature-cards">
+    <div class="hero-feat-card">
+      <span class="hero-feat-icon">🌿</span>
+      <div>
+        <p class="hero-feat-title" data-i18n="feat1_title">현지 직수입</p>
+        <p class="hero-feat-desc" data-i18n="feat1_desc">베트남·태국·필리핀 오리지널 식재료를 합리적인 가격에</p>
+      </div>
+    </div>
+    <div class="hero-feat-card">
+      <span class="hero-feat-icon">📍</span>
+      <div>
+        <p class="hero-feat-title" data-i18n="feat2_title">터미널 인접</p>
+        <p class="hero-feat-desc" data-i18n="feat2_desc">전주시외버스터미널 1층, 교통 요충지 위치</p>
+      </div>
+    </div>
+    <div class="hero-feat-card">
+      <span class="hero-feat-icon">❄️</span>
+      <div>
+        <p class="hero-feat-title" data-i18n="feat3_title">상온·냉동 전 상품</p>
+        <p class="hero-feat-desc" data-i18n="feat3_desc">라면·소스부터 냉동 육류·해산물·고수까지 원스톱</p>
+      </div>
+    </div>
+    <div class="hero-feat-card">
+      <span class="hero-feat-icon">🤝</span>
+      <div>
+        <p class="hero-feat-title" data-i18n="feat4_title">도소매 환영</p>
+        <p class="hero-feat-desc" data-i18n="feat4_desc">식당·마트 대량 납품 및 바이어 파트너십 문의 가능</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ── About ────────────────────────────────────────────────── -->
