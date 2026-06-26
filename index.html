@@ -91,7 +91,13 @@
     }
     .lang-btn:hover:not(.active) { color: var(--red); }
 
-    /* ─── Hero Feature Cards (PC 전용) ─────────────────────────── */
+    /* ─── Hero About Text (PC 전용) ─────────────────────────────── */
+    .hero-about-text { margin: 24px 0 20px; }
+    .hero-about-label { font-size: 12px; font-weight: 700; color: var(--orange); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    .hero-about-title { font-size: 22px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .hero-about-desc { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+    @media (min-width: 901px) { #about { display: none; } }
+
     .hero-feature-cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -499,6 +505,7 @@
     /* ─── Responsive ──────────────────────────────────────────── */
     @media (max-width: 900px) {
       .hero-feature-cards { display: none; }
+      .hero-about-text { display: none; }
       .nav-links { display: none; }
       .lang-switcher { display: flex; padding: 2px 4px; gap: 2px; margin-left: auto; margin-right: 8px; }
       .lang-btn { font-size: 11px; padding: 2px 4px; }
@@ -544,7 +551,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#home"     data-i18n="nav_home">홈</a></li>
-    <li><a href="#about"    data-i18n="nav_about">마트 소개</a></li>
+    <li class="nav-about-pc" style="display:none;"><a href="#about" data-i18n="nav_about">마트 소개</a></li>
     <li><a href="#products" data-i18n="nav_products">상품</a></li>
     <li><a href="#gallery"  data-i18n="nav_gallery">갤러리</a></li>
     <li><a href="#contact"  data-i18n="nav_contact">오시는 길 &amp; 문의</a></li>
@@ -577,7 +584,6 @@
 <!-- ── Hero ────────────────────────────────────────────────── -->
 <section id="home">
   <div class="hero-content">
-    <p class="hero-badge" data-i18n="hero_badge">전주시외버스터미널 1층 · ATU V-Mart</p>
     <h1 class="hero-title">
       <em data-i18n="hero_title_em">터미널 속 작은 동남아</em>
       <span data-i18n="hero_title_main">고향의 맛을 전주에서</span>
@@ -586,6 +592,12 @@
       베트남·태국·필리핀 현지 식품부터 냉동·냉장 신선 식재료까지.<br/>
       아시아 트레이드 유니온(ATU)이 엄선한 동남아 전 상품군을 한자리에서.
     </p>
+    <!-- PC 전용 마트 소개 텍스트 -->
+    <div class="hero-about-text">
+      <p class="hero-about-label" data-i18n="about_label">About Us</p>
+      <p class="hero-about-title" data-i18n="about_title">ATU V-Mart</p>
+      <p class="hero-about-desc" data-i18n="about_desc">국내 거주 외국인, 다문화 가정, 아시안 요리를 사랑하는 모든 분들을 위한 동남아 식품 전문 마켓입니다. 상온·냉동 전 상품군을 갖춘 원스톱 쇼핑 공간으로, 도매 및 바이어 문의도 환영합니다.</p>
+    </div>
     <div class="hero-btns">
       <a href="#products" class="btn-primary" data-i18n="hero_btn_products">상품 둘러보기</a>
       <a href="#contact"  class="btn-outline"  data-i18n="hero_btn_contact">오시는 길</a>
@@ -802,7 +814,7 @@
           <div class="info-icon">📞</div>
           <div>
             <p class="info-label">연락처</p>
-            <p class="info-value"><a href="tel:01094304245">010-9430-4245</a></p>
+            <p class="info-value"><a href="tel:16003578">1600-3578</a></p>
             <p class="info-value" style="margin-top:4px;"><a href="mailto:ceo@atu.kr">ceo@atu.kr</a></p>
           </div>
         </div>
@@ -1332,7 +1344,7 @@ loadProducts();
 </style>
 
 <div class="float-wrap">
-  <a href="tel:01094304245" class="float-btn float-mobile" style="background:#25D366;" title="전화걸기">📞</a>
+  <a href="tel:16003578" class="float-btn float-mobile" style="background:#25D366;" title="전화걸기">📞</a>
   <a href="https://open.kakao.com/o/pFNbFUxi" target="_blank" rel="noopener noreferrer" class="float-btn float-mobile" style="background:#FEE500;" title="카카오톡">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="#3C1E1E"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.568 4.938 3.938 6.318L5 21l4.188-2.188C9.762 18.938 10.872 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
   </a>
