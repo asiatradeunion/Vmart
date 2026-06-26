@@ -790,7 +790,7 @@
         아래 YOUR_EMAIL 을 실제 이메일 주소로 변경하세요.
         처음 폼 제출 시 인증 메일이 옵니다.
       -->
-      <form id="contactForm" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
+      <form id="contactForm" action="https://formsubmit.co/ceo@atu.kr" method="POST">
         <input type="hidden" name="_subject" value="브이마트 문의" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
@@ -1183,12 +1183,7 @@ async function loadProducts() {
 
 /* ─── 13. 폼 제출 ─────────────────────────────────────────── */
 document.getElementById('contactForm').addEventListener('submit', function(e) {
-  const action = this.action;
-  if (action.includes('YOUR_EMAIL')) {
-    e.preventDefault();
-    alert('관리자: contactForm의 action에 실제 이메일 주소를 입력해주세요.');
-    return;
-  }
+  // 폼 정상 제출
 });
 
 /* ─── 15. 상품 검색 ─────────────────────────────────────────── */
