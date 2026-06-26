@@ -641,11 +641,9 @@
     동남아 인기 상품을 카테고리별로 둘러보세요.
   </p>
 
-  <div id="countryGuide" style="margin:0 0 28px; padding:18px 22px; border-radius:14px; border-left:4px solid var(--red); background:var(--red-light); display:flex; align-items:flex-start; gap:14px;">
-    <span id="countryGuideFlag" style="font-size:28px; flex-shrink:0;">🇰🇷</span>
-    <div>
-      <p id="countryGuideText" style="font-size:14px; color:var(--gray-700); line-height:1.7;"></p>
-    </div>
+  <div id="countryGuide" style="margin:0 0 28px; padding:16px 20px; border-radius:14px; background:var(--red-light); display:flex; align-items:center; gap:14px;">
+    <img id="countryGuideFlag" src="https://flagcdn.com/w40/kr.png" width="32" style="border-radius:4px; flex-shrink:0;" />
+    <p id="countryGuideText" style="font-size:14px; color:var(--gray-700); line-height:1.7; margin:0;"></p>
   </div>
 
   <div style="max-width:400px; margin:0 auto 24px; position:relative;">
@@ -1251,16 +1249,16 @@ function filterBySearch(query) {
 
 /* ─── 17. 국가별 쇼핑 가이드 ────────────────────────────────── */
 const countryGuide = {
-  KR: { flag: '🇰🇷', text: '동남아 식품이 처음이신가요? 베트남·태국·필리핀 현지 식재료를 한자리에서 만나보세요.' },
-  EN: { flag: '🇺🇸', text: 'Looking for authentic Asian ingredients? We carry products from Vietnam, Thailand & the Philippines.' },
-  VN: { flag: '🇻🇳', text: 'Tìm kiếm thực phẩm quê hương? Chúng tôi có đầy đủ nguyên liệu Việt Nam chính gốc.' },
-  TH: { flag: '🇹🇭', text: 'หาวัตถุดิบไทยแท้? เรามีสินค้าไทย เวียดนาม และฟิลิปปินส์ครบครัน' },
+  KR: { flag: 'https://flagcdn.com/w40/kr.png', text: '동남아 식품이 처음이신가요? 베트남·태국·필리핀 현지 식재료를 한자리에서 만나보세요.' },
+  EN: { flag: 'https://flagcdn.com/w40/us.png', text: 'Looking for authentic Asian ingredients? We carry products from Vietnam, Thailand & the Philippines.' },
+  VN: { flag: 'https://flagcdn.com/w40/vn.png', text: 'Tìm kiếm thực phẩm quê hương? Chúng tôi có đầy đủ nguyên liệu Việt Nam chính gốc.' },
+  TH: { flag: 'https://flagcdn.com/w40/th.png', text: 'หาวัตถุดิบไทยแท้? เรามีสินค้าไทย เวียดนาม และฟิลิปปินส์ครบครัน' },
 };
 function updateCountryGuide(lang) {
   const guide = countryGuide[lang] || countryGuide['KR'];
   const flagEl = document.getElementById('countryGuideFlag');
   const textEl = document.getElementById('countryGuideText');
-  if (flagEl) flagEl.textContent = guide.flag;
+  if (flagEl) flagEl.src = guide.flag;
   if (textEl) textEl.textContent = guide.text;
 }
 
