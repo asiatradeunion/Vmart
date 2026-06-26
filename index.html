@@ -957,7 +957,7 @@
    컬럼 순서: A=상품명_KR | B=상품명_EN | C=상품명_VN | D=상품명_TH
               E=카테고리  | F=가격(숫자) | G=이미지URL  | H=진열여부(Y/N)
 ──────────────────────────────────────────────────────────── */
-const SHEET_CSV_URL = ''; // ← 여기에 구글 시트 CSV URL 입력
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1UVfwXalaghA7qLUwHD1QadwQ7ELxH-YG4IUtV0b7dn4/export?format=csv&gid=0';
 
 /* ─── 2. 다국어 번역 데이터 ──────────────────────────────────── */
 const i18n = {
@@ -1225,18 +1225,15 @@ function parseCSV(text) {
   return lines.slice(1).map(line => {
     const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
     return {
-      nameKR: cols[0] || '', nameEN: cols[1] || '',
-      nameVN: cols[2] || '', nameTH: cols[3] || '',
-      cat: cols[4] || '기타', price: parseInt(cols[5]) || 0,
-      img: cols[6] || '', show: (cols[7] || 'Y').toUpperCase() !== 'N'
+      id: cols[0] || '', name: cols[1] || '',
+      cat: cols[2] || '기타', img: cols[3] || ''
     };
-  }).filter(p => p.show && p.nameKR);
+  }).filter(p => p.name);
 }
 
 /* ─── 10. 상품 렌더 ──────────────────────────────────────── */
 function getProductName(p) {
-  const map = { KR: p.nameKR, EN: p.nameEN, VN: p.nameVN, TH: p.nameTH };
-  return map[currentLang] || p.nameKR;
+  return p.name || '';
 }
 
 function renderProducts() {
