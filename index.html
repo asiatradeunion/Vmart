@@ -732,9 +732,10 @@
         </div>
         <div class="info-card">
           <div class="info-icon">🕒</div>
-          <div>
+          <div style="width:100%;">
             <p class="info-label" data-i18n="info_hours_label">영업 시간</p>
             <p class="info-value" data-i18n="info_hours">매일 08:00 ~ 21:30 (연중무휴)</p>
+            <div id="openStatus" style="margin-top:8px; display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:20px; font-size:13px; font-weight:600;"></div>
           </div>
         </div>
         <div class="info-card" style="background:var(--red); border:none;">
@@ -1058,6 +1059,31 @@ let allProducts  = [];
 let currentCat   = '전체';
 
 /* ─── 5. 언어 전환 ────────────────────────────────────────── */
+/* ─── 16. 영업 상태 표시 ─────────────────────────────────────── */
+function updateOpenStatus() {
+  const now = new Date();
+  const total = now.getHours() * 60 + now.getMinutes();
+  const isOpen = total >= 480 && total < 1290;
+  const soon = isOpen && total >= 1260;
+  const state = soon ? 'soon' : isOpen ? 'open' : 'close';
+
+  const labels = {
+    open:  { KR:'영업 중', EN:'Open Now', VN:'Đang mở cửa', TH:'เปิดอยู่' },
+    close: { KR:'마감',    EN:'Closed',   VN:'Đã đóng cửa', TH:'ปิดแล้ว' },
+    soon:  { KR:'곧 마감', EN:'Closing Soon', VN:'Sắp đóng cửa', TH:'ใกล้ปิด' },
+  };
+  const colors = { open:'#16a34a', close:'#dc2626', soon:'#d97706' };
+  const bg     = { open:'#dcfce7', close:'#fee2e2', soon:'#fef3c7' };
+  const dot    = { open:'🟢', close:'🔴', soon:'🟡' };
+
+  const el = document.getElementById('openStatus');
+  if (!el) return;
+  el.textContent = dot[state] + ' ' + (labels[state][currentLang] || labels[state]['KR']);
+  el.style.background = bg[state];
+  el.style.color = colors[state];
+}
+setInterval(updateOpenStatus, 60000);
+
 function applyLang(lang) {
   currentLang = lang;
   localStorage.setItem('atu_lang', lang);
@@ -1077,6 +1103,7 @@ function applyLang(lang) {
   });
   document.documentElement.lang = { KR:'ko', EN:'en', VN:'vi', TH:'th' }[lang];
   renderProducts();
+  updateOpenStatus();
 }
 
 /* ─── 6. 네비 스크롤 효과 ─────────────────────────────────── */
