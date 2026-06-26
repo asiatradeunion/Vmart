@@ -126,7 +126,7 @@
     /* ─── Hero ───────────────────────────────────────────────── */
     #home {
       min-height: 100vh;
-      background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #d63a20 100%);
+      background: linear-gradient(135deg, #7a0016 0%, var(--red-dark) 30%, var(--red) 65%, #d63a20 85%, #e8722a 100%);
       display: flex; align-items: center;
       padding: calc(var(--nav-h) + 40px) 5% 80px;
       position: relative; overflow: hidden;
@@ -134,7 +134,13 @@
     #home::before {
       content: '';
       position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M40 44v-6h-3v6h-6v3h6v6h3v-6h6v-3h-6zm0-40V0h-3v4h-6v3h6v6h3V7h6V4h-6zM8 44v-6H5v6H0v3h5v6h3v-6h6v-3H8zM8 4V0H5v4H0v3h5v6h3V7h6V4H8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    #home::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(232,114,42,0.3) 0%, transparent 60%);
+      pointer-events: none;
     }
     .hero-content { position: relative; max-width: 600px; }
     .hero-badge {
@@ -501,10 +507,10 @@
     <li><a href="#contact"  data-i18n="nav_contact">오시는 길 &amp; 문의</a></li>
   </ul>
   <div class="lang-switcher" id="desktopLang">
-    <button class="lang-btn" data-lang="KR">KR</button>
-    <button class="lang-btn" data-lang="EN">EN</button>
-    <button class="lang-btn" data-lang="VN">VN</button>
-    <button class="lang-btn" data-lang="TH">TH</button>
+    <button class="lang-btn" data-lang="KR"><img src="https://flagcdn.com/w20/kr.png" width="18" style="vertical-align:middle;border-radius:2px;"> KR</button>
+    <button class="lang-btn" data-lang="EN"><img src="https://flagcdn.com/w20/us.png" width="18" style="vertical-align:middle;border-radius:2px;"> EN</button>
+    <button class="lang-btn" data-lang="VN"><img src="https://flagcdn.com/w20/vn.png" width="18" style="vertical-align:middle;border-radius:2px;"> VN</button>
+    <button class="lang-btn" data-lang="TH"><img src="https://flagcdn.com/w20/th.png" width="18" style="vertical-align:middle;border-radius:2px;"> TH</button>
   </div>
   <button class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
     <span></span><span></span><span></span>
@@ -518,10 +524,10 @@
   <a href="#gallery"  data-i18n="nav_gallery">갤러리</a>
   <a href="#contact"  data-i18n="nav_contact">오시는 길 &amp; 문의</a>
   <div class="mobile-lang">
-    <button class="lang-btn" data-lang="KR">KR</button>
-    <button class="lang-btn" data-lang="EN">EN</button>
-    <button class="lang-btn" data-lang="VN">VN</button>
-    <button class="lang-btn" data-lang="TH">TH</button>
+    <button class="lang-btn" data-lang="KR"><img src="https://flagcdn.com/w20/kr.png" width="18" style="vertical-align:middle;border-radius:2px;"> KR</button>
+    <button class="lang-btn" data-lang="EN"><img src="https://flagcdn.com/w20/us.png" width="18" style="vertical-align:middle;border-radius:2px;"> EN</button>
+    <button class="lang-btn" data-lang="VN"><img src="https://flagcdn.com/w20/vn.png" width="18" style="vertical-align:middle;border-radius:2px;"> VN</button>
+    <button class="lang-btn" data-lang="TH"><img src="https://flagcdn.com/w20/th.png" width="18" style="vertical-align:middle;border-radius:2px;"> TH</button>
   </div>
 </div>
 
@@ -616,6 +622,13 @@
   <p class="section-desc" data-i18n="products_desc">
     동남아 인기 상품을 카테고리별로 둘러보세요.
   </p>
+
+  <div style="max-width:400px; margin:0 auto 24px; position:relative;">
+    <input id="productSearch" type="text" placeholder="🔍 상품 검색..." data-i18n-placeholder="search_placeholder"
+      style="width:100%; padding:12px 20px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border .2s;"
+      onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--gray-100)'"
+      oninput="filterBySearch(this.value)">
+  </div>
 
   <div class="cat-tabs" id="catTabs">
     <button class="cat-tab active" data-cat="전체"    data-i18n="cat_all">전체</button>
@@ -753,11 +766,19 @@
       </div>
 
       <div class="map-wrap" style="margin-top: 20px;">
-        <iframe
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <button onclick="document.getElementById('googleMap').style.display='block'; document.getElementById('kakaoMap').style.display='none'; this.style.background='var(--red)'; this.style.color='white'; document.getElementById('kakaoMapBtn').style.background='var(--gray-100)'; document.getElementById('kakaoMapBtn').style.color='var(--gray-700)';" style="padding:6px 14px; border-radius:20px; border:none; background:var(--red); color:white; font-size:13px; font-weight:600; cursor:pointer;">구글맵</button>
+          <button id="kakaoMapBtn" onclick="document.getElementById('kakaoMap').style.display='block'; document.getElementById('googleMap').style.display='none'; this.style.background='var(--red)'; this.style.color='white'; document.getElementById('kakaoMapBtn').previousElementSibling.style.background='var(--gray-100)'; document.getElementById('kakaoMapBtn').previousElementSibling.style.color='var(--gray-700)';" style="padding:6px 14px; border-radius:20px; border:none; background:var(--gray-100); color:var(--gray-700); font-size:13px; font-weight:600; cursor:pointer;">카카오맵</button>
+        </div>
+        <iframe id="googleMap"
           src="https://maps.google.com/maps?q=전북+전주시+덕진구+가리내로+30&t=&z=16&ie=UTF8&iwloc=&output=embed"
           allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="브이마트 위치">
+          title="브이마트 위치" style="width:100%; height:320px; border:0; border-radius:12px;">
+        </iframe>
+        <iframe id="kakaoMap" style="display:none; width:100%; height:320px; border:0; border-radius:12px;"
+          src="https://map.kakao.com/link/map/브이마트,35.8468,127.1298/embed"
+          allowfullscreen="" loading="lazy" title="브이마트 카카오맵">
         </iframe>
       </div>
     </div>
@@ -1170,9 +1191,45 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   }
 });
 
+/* ─── 15. 상품 검색 ─────────────────────────────────────────── */
+function filterBySearch(query) {
+  const q = query.trim().toLowerCase();
+  document.querySelectorAll('.product-card').forEach(card => {
+    const name = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
+    const cat = card.dataset.cat || '';
+    card.style.display = (!q || name.includes(q) || cat.includes(q)) ? '' : 'none';
+  });
+}
+
 /* ─── 14. 초기화 ─────────────────────────────────────────── */
 applyLang(currentLang);
 loadProducts();
 </script>
+<!-- ── 플로팅 버튼들 ──────────────────────────────────────────── -->
+<style>
+  .float-wrap { position:fixed; bottom:28px; right:20px; z-index:900; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .float-btn { width:50px; height:50px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 4px 16px rgba(0,0,0,0.18); transition:transform .2s, opacity .2s; text-decoration:none; }
+  .float-btn:hover { transform:scale(1.1); }
+  .float-top { background:var(--red); color:white; opacity:0; pointer-events:none; transition:opacity .3s; }
+  .float-top.show { opacity:1; pointer-events:auto; }
+  /* 모바일에서만 전화/카카오 버튼 표시 */
+  .float-mobile { display:none; }
+  @media (max-width: 900px) { .float-mobile { display:flex; } }
+</style>
+
+<div class="float-wrap">
+  <a href="tel:01094304245" class="float-btn float-mobile" style="background:#25D366;" title="전화걸기">📞</a>
+  <a href="https://open.kakao.com/o/pFNbFUxi" target="_blank" rel="noopener noreferrer" class="float-btn float-mobile" style="background:#FEE500;" title="카카오톡">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#3C1E1E"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.568 4.938 3.938 6.318L5 21l4.188-2.188C9.762 18.938 10.872 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+  </a>
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="float-btn float-top" id="scrollTopBtn" title="맨 위로">↑</button>
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTopBtn').classList.toggle('show', window.scrollY > 300);
+});
+</script>
+
 </body>
 </html>
