@@ -1422,7 +1422,7 @@ function renderProducts() {
       <div class="product-thumb">
         ${p.img
           ? `<img src="${p.img}" alt="${getProductName(p)}" loading="lazy" style="cursor:zoom-in"
-                  onclick="document.getElementById('imgModalImg').src=this.src;document.getElementById('imgModal').classList.add('open')"
+                  onclick="openProductImg(this.src)"
                   onerror="this.parentElement.innerHTML='<div class=\\'product-thumb-placeholder\\'>🛒</div>'" />`
           : `<div class="product-thumb-placeholder">🛒</div>`}
       </div>
@@ -1509,7 +1509,16 @@ function openGallery(src) {
   const idx = galleryImgs.findIndex(s => s.startsWith(base));
   galleryIdx = idx >= 0 ? idx : 0;
   document.getElementById('imgModalImg').src = galleryImgs[galleryIdx];
-  document.getElementById('imgModal').classList.add('open');
+  const modal = document.getElementById('imgModal');
+  modal.classList.add('open');
+  modal.querySelectorAll('.modal-nav').forEach(b => b.style.display = 'flex');
+}
+
+function openProductImg(src) {
+  document.getElementById('imgModalImg').src = src;
+  const modal = document.getElementById('imgModal');
+  modal.classList.add('open');
+  modal.querySelectorAll('.modal-nav').forEach(b => b.style.display = 'none');
 }
 function galleryNav(dir) {
   galleryIdx = (galleryIdx + dir + galleryImgs.length) % galleryImgs.length;
