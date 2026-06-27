@@ -378,18 +378,21 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px; margin-top: 40px;
+      grid-auto-rows: 220px;
+      gap: 10px; margin-top: 40px;
     }
     .gallery-item {
       border-radius: var(--radius); overflow: hidden;
-      aspect-ratio: 4/3; position: relative;
+      position: relative;
       background: var(--gray-100); cursor: pointer;
     }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
-    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item--wide { grid-column: span 2; }
+    .gallery-item--full { grid-column: span 3; grid-row: span 1; height: 280px; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; display: block; }
+    .gallery-item:hover img { transform: scale(1.07); }
     .gallery-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
       display: flex; align-items: flex-end; padding: 16px;
       opacity: 0; transition: opacity .3s;
     }
@@ -513,7 +516,9 @@
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
       .about-badge { display: none; }
       .contact-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .gallery-item--full { grid-column: span 2; height: 200px; }
+      .gallery-item--wide { grid-column: span 2; }
       /* 카테고리 탭 가로 스크롤 */
       .cat-tabs {
         flex-wrap: nowrap;
@@ -537,7 +542,7 @@
       section { padding: 60px 5%; }
       .features-grid { grid-template-columns: 1fr; }
       .products-grid { grid-template-columns: repeat(3, 1fr); }
-      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; }
       .hero-deco { display: none; }
     }
   
@@ -794,36 +799,54 @@
   <p class="section-desc" data-i18n="gallery_desc">브이마트의 다양한 상품과 매장 모습을 확인하세요.</p>
 
   <div class="gallery-grid">
-    <!-- 사진이 없을 경우 placeholder 표시됨 -->
-    <div class="gallery-item">
-      <img src="images/gallery_1.jpg" alt="갤러리 1"
-           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>갤러리 사진 1<br/><small>gallery_1.jpg</small></div>'" />
-      <div class="gallery-overlay"><p class="gallery-caption" data-i18n="gal1">매장 전경</p></div>
+    <!-- Row1: wide(1) + normal(2) -->
+    <div class="gallery-item gallery-item--wide" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="1.jpg" alt="매장 사진 1" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">ATU V-Mart</p></div>
     </div>
-    <div class="gallery-item">
-      <img src="images/gallery_2.jpg" alt="갤러리 2"
-           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>갤러리 사진 2<br/><small>gallery_2.jpg</small></div>'" />
-      <div class="gallery-overlay"><p class="gallery-caption" data-i18n="gal2">신선 야채 & 과일</p></div>
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="2.jpg" alt="매장 사진 2" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">매장 내부</p></div>
     </div>
-    <div class="gallery-item">
-      <img src="images/gallery_3.jpg" alt="갤러리 3"
-           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>갤러리 사진 3<br/><small>gallery_3.jpg</small></div>'" />
-      <div class="gallery-overlay"><p class="gallery-caption" data-i18n="gal3">라면 & 누들 코너</p></div>
+    <!-- Row2: normal x3 -->
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="3.jpg" alt="매장 사진 3" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">상품 진열</p></div>
     </div>
-    <div class="gallery-item">
-      <img src="images/gallery_4.jpg" alt="갤러리 4"
-           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>갤러리 사진 4<br/><small>gallery_4.jpg</small></div>'" />
-      <div class="gallery-overlay"><p class="gallery-caption" data-i18n="gal4">소스 & 양념류</p></div>
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="4.jpg" alt="매장 사진 4" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">면 & 라면 코너</p></div>
     </div>
-    <div class="gallery-item">
-      <img src="images/gallery_5.jpg" alt="갤러리 5"
-           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>갤러리 사진 5<br/><small>gallery_5.jpg</small></div>'" />
-      <div class="gallery-overlay"><p class="gallery-caption" data-i18n="gal5">냉동식품 코너</p></div>
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="5.jpg" alt="매장 사진 5" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">소스 & 양념류</p></div>
     </div>
-    <div class="gallery-item">
-      <img src="images/gallery_6.jpg" alt="갤러리 6"
-           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>갤러리 사진 6<br/><small>gallery_6.jpg</small></div>'" />
-      <div class="gallery-overlay"><p class="gallery-caption" data-i18n="gal6">음료 & 커피</p></div>
+    <!-- Row3: normal(6) + wide(7) -->
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="6.jpg" alt="매장 사진 6" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">냉동식품 코너</p></div>
+    </div>
+    <div class="gallery-item gallery-item--wide" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="7.jpg" alt="매장 사진 7" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">음료 & 커피</p></div>
+    </div>
+    <!-- Row4: normal x3 -->
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="8.jpg" alt="매장 사진 8" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">스낵 & 과자</p></div>
+    </div>
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="9.jpg" alt="매장 사진 9" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">채소 & 신선식품</p></div>
+    </div>
+    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="10.jpg" alt="매장 사진 10" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">유제품 코너</p></div>
+    </div>
+    <!-- Row5: full width -->
+    <div class="gallery-item gallery-item--full" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+      <img src="11.jpg" alt="매장 사진 11" loading="lazy" onerror="this.style.display='none'" />
+      <div class="gallery-overlay"><p class="gallery-caption">ATU V-Mart 전주 터미널점</p></div>
     </div>
   </div>
 </section>
