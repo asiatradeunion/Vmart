@@ -1201,7 +1201,8 @@ const SAMPLE_PRODUCTS = [];
 /* ─── 4. 상태 ─────────────────────────────────────────────── */
 let currentLang = localStorage.getItem('atu_lang') || 'KR';
 let allProducts  = [];
-let currentCat   = '전체';
+let currentCat    = '전체';
+let currentSearch = '';
 let dataLoaded   = false;
 let currentPage  = 1;
 const PAGE_SIZE_PC = 24;
@@ -1343,16 +1344,28 @@ function getCatName(cat) {
   return (key && i18n[currentLang]?.[key]) || cat;
 }
 
+function getFilteredProducts() {
+  let list = currentCat === '전체' ? allProducts : allProducts.filter(p => p.cat === currentCat);
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    list = list.filter(p =>
+      (p.name || '').toLowerCase().includes(q) ||
+      (p.name_en || '').toLowerCase().includes(q) ||
+      (p.name_vi || '').toLowerCase().includes(q) ||
+      (p.name_th || '').toLowerCase().includes(q)
+    );
+  }
+  return list;
+}
+
 function renderProducts() {
   if (!dataLoaded) return;
   const t    = i18n[currentLang];
   const grid = document.getElementById('productsGrid');
-  const filtered = currentCat === '전체'
-    ? allProducts
-    : allProducts.filter(p => p.cat === currentCat);
+  const filtered = getFilteredProducts();
 
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="products-loading" style="animation:none;">${t.cat_all === 'All' ? 'No products found.' : '상품이 없습니다.'}</div>`;
+    grid.innerHTML = `<div class="products-loading" style="animation:none;">${currentSearch ? '검색 결과가 없습니다.' : '상품이 없습니다.'}</div>`;
     renderPagination(0, 0);
     return;
   }
@@ -1379,7 +1392,7 @@ function renderProducts() {
       </div>
     </div>
   `).join('');
-  renderPagination(currentPage, Math.ceil((currentCat === '전체' ? allProducts : allProducts.filter(p=>p.cat===currentCat)).length / getPageSize()));
+  renderPagination(currentPage, Math.ceil(getFilteredProducts().length / getPageSize()));
 }
 
 /* ─── 페이지네이션 렌더 ──────────────────────────────────── */
@@ -1443,12 +1456,9 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 
 /* ─── 15. 상품 검색 ─────────────────────────────────────────── */
 function filterBySearch(query) {
-  const q = query.trim().toLowerCase();
-  document.querySelectorAll('.product-card').forEach(card => {
-    const name = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
-    const cat = card.dataset.cat || '';
-    card.style.display = (!q || name.includes(q) || cat.includes(q)) ? '' : 'none';
-  });
+  currentSearch = query.trim();
+  currentPage = 1;
+  renderProducts();
 }
 
 /* ─── 17. 국가별 쇼핑 가이드 ────────────────────────────────── */
