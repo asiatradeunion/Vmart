@@ -1503,6 +1503,7 @@ loadProducts();
 /* ─── 갤러리 모달 네비게이션 ─────────────────────────────────── */
 const galleryImgs = ['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg?v=3','7.jpg?v=3','8.jpg?v=3','9.jpg?v=4','10.jpg?v=3','11.jpg'];
 let galleryIdx = 0;
+let isGalleryModal = false;
 
 function openGallery(src) {
   const base = src.split('?')[0].split('/').pop();
@@ -1512,6 +1513,7 @@ function openGallery(src) {
   const modal = document.getElementById('imgModal');
   modal.classList.add('open');
   modal.querySelectorAll('.modal-nav').forEach(b => b.style.display = 'flex');
+  isGalleryModal = true;
 }
 
 function openProductImg(src) {
@@ -1519,6 +1521,7 @@ function openProductImg(src) {
   const modal = document.getElementById('imgModal');
   modal.classList.add('open');
   modal.querySelectorAll('.modal-nav').forEach(b => b.style.display = 'none');
+  isGalleryModal = false;
 }
 function galleryNav(dir) {
   galleryIdx = (galleryIdx + dir + galleryImgs.length) % galleryImgs.length;
@@ -1529,6 +1532,7 @@ document.addEventListener('keydown', function(e) {
   const modal = document.getElementById('imgModal');
   if (!modal.classList.contains('open')) return;
   if (e.key === 'Escape') modal.classList.remove('open');
+  if (!isGalleryModal) return;
   if (e.key === 'ArrowLeft') galleryNav(-1);
   if (e.key === 'ArrowRight') galleryNav(1);
 });
@@ -1540,7 +1544,7 @@ document.addEventListener('DOMContentLoaded', function() {
   m.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, {passive:true});
   m.addEventListener('touchend', function(e) {
     const dx = e.changedTouches[0].clientX - tx;
-    if (Math.abs(dx) > 50) galleryNav(dx < 0 ? 1 : -1);
+    if (isGalleryModal && Math.abs(dx) > 50) galleryNav(dx < 0 ? 1 : -1);
   }, {passive:true});
 });
 </script>
