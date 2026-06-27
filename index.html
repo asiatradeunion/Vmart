@@ -590,9 +590,26 @@
 #imgModal .modal-close {
   position: absolute; top: 20px; right: 24px;
   color: white; font-size: 32px; cursor: pointer;
-  line-height: 1; opacity: 0.8;
+  line-height: 1; opacity: 0.8; z-index: 10;
 }
 #imgModal .modal-close:hover { opacity: 1; }
+.modal-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.15); border: none;
+  color: white; font-size: 28px; width: 48px; height: 48px;
+  border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s; z-index: 10;
+  backdrop-filter: blur(4px);
+}
+.modal-nav:hover { background: rgba(255,255,255,0.3); }
+.modal-nav.prev { left: 16px; }
+.modal-nav.next { right: 16px; }
+@media (max-width: 600px) {
+  .modal-nav { width: 40px; height: 40px; font-size: 22px; }
+  .modal-nav.prev { left: 8px; }
+  .modal-nav.next { right: 8px; }
+}
 
 /* ─── 페이지네이션 ───────────────────────────────────────── */
 .page-btn {
@@ -832,51 +849,51 @@
 
   <div class="gallery-grid">
     <!-- Row1: wide(1) + normal(2) -->
-    <div class="gallery-item gallery-item--wide" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item gallery-item--wide" onclick="openGallery(this.querySelector('img').src)">
       <img src="1.jpg" alt="매장 사진 1" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">ATU V-Mart</p></div>
     </div>
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="2.jpg" alt="매장 사진 2" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">매장 내부</p></div>
     </div>
     <!-- Row2: normal x3 -->
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="3.jpg" alt="매장 사진 3" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">상품 진열</p></div>
     </div>
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="4.jpg" alt="매장 사진 4" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">면 & 라면 코너</p></div>
     </div>
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="5.jpg?v=4" alt="매장 사진 5" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">소스 & 양념류</p></div>
     </div>
     <!-- Row3: normal(6) + wide(7) -->
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="6.jpg?v=3" alt="매장 사진 6" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">냉동식품 코너</p></div>
     </div>
-    <div class="gallery-item gallery-item--wide" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item gallery-item--wide" onclick="openGallery(this.querySelector('img').src)">
       <img src="7.jpg?v=3" alt="매장 사진 7" loading="lazy" onerror="this.style.display='none'" style="object-position: center 65%;" />
       <div class="gallery-overlay"><p class="gallery-caption">음료 & 커피</p></div>
     </div>
     <!-- Row4: normal x3 -->
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="8.jpg?v=3" alt="매장 사진 8" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">스낵 & 과자</p></div>
     </div>
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="9.jpg?v=4" alt="매장 사진 9" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">채소 & 신선식품</p></div>
     </div>
-    <div class="gallery-item" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item" onclick="openGallery(this.querySelector('img').src)">
       <img src="10.jpg?v=3" alt="매장 사진 10" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">유제품 코너</p></div>
     </div>
     <!-- Row5: full width -->
-    <div class="gallery-item gallery-item--full" onclick="document.getElementById('imgModalImg').src=this.querySelector('img').src;document.getElementById('imgModal').classList.add('open')">
+    <div class="gallery-item gallery-item--full" onclick="openGallery(this.querySelector('img').src)">
       <img src="11.jpg" alt="매장 사진 11" loading="lazy" onerror="this.style.display='none'" />
       <div class="gallery-overlay"><p class="gallery-caption">ATU V-Mart 전주 터미널점</p></div>
     </div>
@@ -1427,127 +1444,4 @@ function renderProducts() {
   renderPagination(currentPage, Math.ceil(getFilteredProducts().length / getPageSize()));
 }
 
-/* ─── 페이지네이션 렌더 ──────────────────────────────────── */
-function renderPagination(cur, total) {
-  const el = document.getElementById('pagination');
-  if (!el) return;
-  if (total <= 1) { el.innerHTML = ''; return; }
-  let html = '';
-  if (cur > 1) html += `<button class="page-btn" onclick="goPage(${cur-1})">&#8249;</button>`;
-  for (let i = 1; i <= total; i++) {
-    if (i === 1 || i === total || (i >= cur-2 && i <= cur+2)) {
-      html += `<button class="page-btn${i===cur?' active':''}" onclick="goPage(${i})">${i}</button>`;
-    } else if (i === cur-3 || i === cur+3) {
-      html += `<span class="page-dots">…</span>`;
-    }
-  }
-  if (cur < total) html += `<button class="page-btn" onclick="goPage(${cur+1})">&#8250;</button>`;
-  el.innerHTML = html;
-}
-function goPage(n) {
-  currentPage = n;
-  renderProducts();
-  document.getElementById('products').scrollIntoView({behavior:'smooth'});
-}
-
-/* ─── 11. 카테고리 탭 ─────────────────────────────────────── */
-document.getElementById('catTabs').addEventListener('click', e => {
-  const btn = e.target.closest('.cat-tab');
-  if (!btn) return;
-  currentCat = btn.dataset.cat;
-  currentPage = 1;
-  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderProducts();
-});
-
-/* ─── 12. 상품 불러오기 ──────────────────────────────────── */
-async function loadProducts() {
-  if (SHEET_CSV_URL) {
-    try {
-      const res = await fetch(SHEET_CSV_URL);
-      const txt = await res.text();
-      allProducts = parseCSV(txt);
-    } catch (e) {
-      console.warn('구글 시트 로딩 실패, 샘플 데이터 사용:', e);
-      allProducts = SAMPLE_PRODUCTS;
-      document.getElementById('sheetNotice').style.display = 'block';
-    }
-  } else {
-    allProducts = SAMPLE_PRODUCTS;
-  }
-  dataLoaded = true;
-  document.getElementById('productsLoading').style.display = 'none';
-  renderProducts();
-}
-
-/* ─── 13. 폼 제출 ─────────────────────────────────────────── */
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  // 폼 정상 제출
-});
-
-/* ─── 15. 상품 검색 ─────────────────────────────────────────── */
-function filterBySearch(query) {
-  currentSearch = query.trim();
-  currentPage = 1;
-  renderProducts();
-}
-
-/* ─── 17. 국가별 쇼핑 가이드 ────────────────────────────────── */
-const countryGuide = {
-  KR: { flag: 'https://flagcdn.com/w40/kr.png', text: '동남아 식품이 처음이신가요? 베트남·태국·필리핀 현지 식재료를 한자리에서 만나보세요.' },
-  EN: { flag: 'https://flagcdn.com/w40/us.png', text: 'Looking for authentic Asian ingredients? We carry products from Vietnam, Thailand & the Philippines.' },
-  VN: { flag: 'https://flagcdn.com/w40/vn.png', text: 'Tìm kiếm thực phẩm quê hương? Chúng tôi có đầy đủ nguyên liệu Việt Nam chính gốc.' },
-  TH: { flag: 'https://flagcdn.com/w40/th.png', text: 'หาวัตถุดิบไทยแท้? เรามีสินค้าไทย เวียดนาม และฟิลิปปินส์ครบครัน' },
-};
-function updateCountryGuide(lang) {
-  const guide = countryGuide[lang] || countryGuide['KR'];
-  const flagEl = document.getElementById('countryGuideFlag');
-  const textEl = document.getElementById('countryGuideText');
-  if (flagEl) flagEl.src = guide.flag;
-  if (textEl) textEl.textContent = guide.text;
-}
-
-/* ─── 14. 초기화 ─────────────────────────────────────────── */
-applyLang(currentLang);
-loadProducts();
-
-/* ─── 이미지 모달 ESC 닫기 ─────────────────────────────────── */
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') document.getElementById('imgModal').classList.remove('open');
-});
-</script>
-<!-- ── 플로팅 버튼들 ──────────────────────────────────────────── -->
-<style>
-  .float-wrap { position:fixed; bottom:28px; right:20px; z-index:900; display:flex; flex-direction:column; align-items:center; gap:10px; }
-  .float-btn { width:50px; height:50px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 4px 16px rgba(0,0,0,0.18); transition:transform .2s, opacity .2s; text-decoration:none; }
-  .float-btn:hover { transform:scale(1.1); }
-  .float-top { background:var(--red); color:white; opacity:0; pointer-events:none; transition:opacity .3s; }
-  .float-top.show { opacity:1; pointer-events:auto; }
-  /* 모바일에서만 전화/카카오 버튼 표시 */
-  .float-mobile { display:none; }
-  @media (max-width: 900px) { .float-mobile { display:flex; } }
-</style>
-
-<div class="float-wrap">
-  <a href="tel:16003578" class="float-btn float-mobile" style="background:#25D366;" title="전화걸기">📞</a>
-  <a href="https://open.kakao.com/o/pFNbFUxi" target="_blank" rel="noopener noreferrer" class="float-btn float-mobile" style="background:#FEE500;" title="카카오톡">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="#3C1E1E"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.568 4.938 3.938 6.318L5 21l4.188-2.188C9.762 18.938 10.872 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
-  </a>
-  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="float-btn float-top" id="scrollTopBtn" title="맨 위로">↑</button>
-</div>
-
-<script>
-window.addEventListener('scroll', () => {
-  document.getElementById('scrollTopBtn').classList.toggle('show', window.scrollY > 300);
-});
-</script>
-
-
-<!-- ── 이미지 모달 ── -->
-<div id="imgModal" onclick="this.classList.remove('open')">
-  <span class="modal-close" onclick="document.getElementById('imgModal').classList.remove('open')">&times;</span>
-  <img id="imgModalImg" src="" alt="" onclick="event.stopPropagation()" />
-</div>
-</body>
-</html>
+/* ─── 페이지네이션 렌더 ───────────────────────�
