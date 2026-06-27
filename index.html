@@ -562,6 +562,17 @@
   line-height: 1; opacity: 0.8;
 }
 #imgModal .modal-close:hover { opacity: 1; }
+
+/* ─── 페이지네이션 ───────────────────────────────────────── */
+.page-btn {
+  min-width: 36px; height: 36px; padding: 0 10px;
+  border: 1px solid var(--gray-100); border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: var(--gray-700);
+  background: var(--white); cursor: pointer; transition: all .2s;
+}
+.page-btn:hover { border-color: var(--red); color: var(--red); }
+.page-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
+.page-dots { color: var(--gray-400); font-size: 14px; padding: 0 4px; }
 </style>
 </head>
 <body>
@@ -766,6 +777,7 @@
   <div id="productsGrid" class="products-grid">
     <div class="products-loading" id="productsLoading" data-i18n="products_loading">상품을 불러오는 중...</div>
   </div>
+  <div id="pagination" style="display:flex;justify-content:center;align-items:center;gap:6px;margin:32px 0 8px;flex-wrap:wrap;"></div>
 
   <!-- ▼ 구글 시트 연동 안내 — 나중에 삭제 가능 -->
   <div class="sheet-notice" id="sheetNotice" style="display:none;">
@@ -979,7 +991,7 @@
    컬럼 순서: A=상품명_KR | B=상품명_EN | C=상품명_VN | D=상품명_TH
               E=카테고리  | F=가격(숫자) | G=이미지URL  | H=진열여부(Y/N)
 ──────────────────────────────────────────────────────────── */
-const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1UVfwXalaghA7qLUwHD1QadwQ7ELxH-YG4IUtV0b7dn4/export?format=csv&gid=0';
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1W6R9szdW22w3PQESnslTA-JnWJT926ISFt4TaZWEdn4/export?format=csv&gid=1829500843';
 
 /* ─── 2. 다국어 번역 데이터 ──────────────────────────────────── */
 const i18n = {
@@ -1168,6 +1180,10 @@ let currentLang = localStorage.getItem('atu_lang') || 'KR';
 let allProducts  = [];
 let currentCat   = '전체';
 let dataLoaded   = false;
+let currentPage  = 1;
+const PAGE_SIZE_PC = 24;
+const PAGE_SIZE_MB = 12;
+function getPageSize() { return window.innerWidth <= 768 ? PAGE_SIZE_MB : PAGE_SIZE_PC; }
 
 /* ─── 5. 언어 전환 ────────────────────────────────────────── */
 /* ─── 16. 영업 상태 표시 ─────────────────────────────────────── */
@@ -1245,17 +1261,50 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 /* ─── 9. CSV 파싱 ─────────────────────────────────────────── */
 function parseCSV(text) {
   const lines = text.trim().split('\n');
+  // BOM 제거
+  if (lines[0].charCodeAt(0) === 0xFEFF) lines[0] = lines[0].slice(1);
+  const header = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
+  const hasMultiLang = header.includes('name_en');
+
   return lines.slice(1).map(line => {
-    const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
-    return {
-      id: cols[0] || '', name: cols[1] || '',
-      cat: cols[2] || '기타', img: cols[3] || ''
-    };
-  }).filter(p => p.name);
+    // 쉼표가 포함된 필드(따옴표 감싸진 것) 처리
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur.trim());
+
+    if (hasMultiLang) {
+      // 7열: id, name_ko, name_en, name_vi, name_th, category, image_url
+      return {
+        id:      cols[0] || '',
+        name:    cols[1] || '',
+        name_en: cols[2] || cols[1] || '',
+        name_vi: cols[3] || cols[1] || '',
+        name_th: cols[4] || cols[1] || '',
+        cat:     cols[5] || '기타',
+        img:     cols[6] || ''
+      };
+    } else {
+      // 구형 4열: id, name, category, image_url
+      return {
+        id: cols[0] || '', name: cols[1] || '',
+        name_en: cols[1] || '', name_vi: cols[1] || '', name_th: cols[1] || '',
+        cat: cols[2] || '기타', img: cols[3] || ''
+      };
+    }
+  }).filter(p => p.name && p.name !== '-');
 }
 
 /* ─── 10. 상품 렌더 ──────────────────────────────────────── */
 function getProductName(p) {
+  if (currentLang === 'EN') return p.name_en || p.name || '';
+  if (currentLang === 'VN') return p.name_vi || p.name || '';
+  if (currentLang === 'TH') return p.name_th || p.name || '';
   return p.name || '';
 }
 
@@ -1263,14 +1312,21 @@ function renderProducts() {
   if (!dataLoaded) return;
   const t    = i18n[currentLang];
   const grid = document.getElementById('productsGrid');
-  const data = currentCat === '전체'
+  const filtered = currentCat === '전체'
     ? allProducts
     : allProducts.filter(p => p.cat === currentCat);
 
-  if (data.length === 0) {
+  if (filtered.length === 0) {
     grid.innerHTML = `<div class="products-loading" style="animation:none;">${t.cat_all === 'All' ? 'No products found.' : '상품이 없습니다.'}</div>`;
+    renderPagination(0, 0);
     return;
   }
+
+  const ps = getPageSize();
+  const totalPages = Math.ceil(filtered.length / ps);
+  if (currentPage > totalPages) currentPage = 1;
+  const start = (currentPage - 1) * ps;
+  const data = filtered.slice(start, start + ps);
 
   grid.innerHTML = data.map(p => `
     <div class="product-card">
@@ -1288,6 +1344,30 @@ function renderProducts() {
       </div>
     </div>
   `).join('');
+  renderPagination(currentPage, Math.ceil((currentCat === '전체' ? allProducts : allProducts.filter(p=>p.cat===currentCat)).length / getPageSize()));
+}
+
+/* ─── 페이지네이션 렌더 ──────────────────────────────────── */
+function renderPagination(cur, total) {
+  const el = document.getElementById('pagination');
+  if (!el) return;
+  if (total <= 1) { el.innerHTML = ''; return; }
+  let html = '';
+  if (cur > 1) html += `<button class="page-btn" onclick="goPage(${cur-1})">&#8249;</button>`;
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= cur-2 && i <= cur+2)) {
+      html += `<button class="page-btn${i===cur?' active':''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (i === cur-3 || i === cur+3) {
+      html += `<span class="page-dots">…</span>`;
+    }
+  }
+  if (cur < total) html += `<button class="page-btn" onclick="goPage(${cur+1})">&#8250;</button>`;
+  el.innerHTML = html;
+}
+function goPage(n) {
+  currentPage = n;
+  renderProducts();
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
 }
 
 /* ─── 11. 카테고리 탭 ─────────────────────────────────────── */
@@ -1295,6 +1375,7 @@ document.getElementById('catTabs').addEventListener('click', e => {
   const btn = e.target.closest('.cat-tab');
   if (!btn) return;
   currentCat = btn.dataset.cat;
+  currentPage = 1;
   document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderProducts();
@@ -1353,6 +1434,11 @@ function updateCountryGuide(lang) {
 /* ─── 14. 초기화 ─────────────────────────────────────────── */
 applyLang(currentLang);
 loadProducts();
+
+/* ─── 이미지 모달 ESC 닫기 ─────────────────────────────────── */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('imgModal').classList.remove('open');
+});
 </script>
 <!-- ── 플로팅 버튼들 ──────────────────────────────────────────── -->
 <style>
