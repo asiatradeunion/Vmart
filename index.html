@@ -1308,6 +1308,18 @@ function getProductName(p) {
   return p.name || '';
 }
 
+const CAT_KEY_MAP = {
+  '전체':'cat_all','면_라면':'cat_noodles','소스':'cat_sauce','통조림':'cat_canned',
+  '조미료':'cat_seasoning','유제품':'cat_dairy','스낵_절임':'cat_snack','음료_커피':'cat_drink',
+  '과일':'cat_fruit','채소':'cat_veg','육류':'cat_meat','해산물':'cat_seafood',
+  '생활용품':'cat_living','의류':'cat_clothes','뷰티':'cat_beauty','전자':'cat_elec',
+  '반찬':'cat_sidedish','주류':'cat_alcohol','건기식':'cat_health','냉동_냉장':'cat_frozen'
+};
+function getCatName(cat) {
+  const key = CAT_KEY_MAP[cat];
+  return (key && i18n[currentLang]?.[key]) || cat;
+}
+
 function renderProducts() {
   if (!dataLoaded) return;
   const t    = i18n[currentLang];
@@ -1338,7 +1350,7 @@ function renderProducts() {
           : `<div class="product-thumb-placeholder">🛒</div>`}
       </div>
       <div class="product-info">
-        <p class="product-cat">${p.cat}</p>
+        <p class="product-cat">${getCatName(p.cat)}</p>
         <p class="product-name">${getProductName(p)}</p>
         ${p.price ? `<p class="product-price">₩ ${p.price.toLocaleString()}</p>` : ''}
       </div>
