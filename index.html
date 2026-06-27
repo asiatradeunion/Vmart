@@ -540,7 +540,29 @@
       .gallery-grid { grid-template-columns: 1fr; }
       .hero-deco { display: none; }
     }
-  </style>
+  
+/* ─── 이미지 모달 ─────────────────────────────────────────── */
+#imgModal {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.85);
+  align-items: center; justify-content: center;
+  cursor: zoom-out;
+}
+#imgModal.open { display: flex; }
+#imgModal img {
+  max-width: 90vw; max-height: 90vh;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  cursor: default;
+}
+#imgModal .modal-close {
+  position: absolute; top: 20px; right: 24px;
+  color: white; font-size: 32px; cursor: pointer;
+  line-height: 1; opacity: 0.8;
+}
+#imgModal .modal-close:hover { opacity: 1; }
+</style>
 </head>
 <body>
 
@@ -1145,6 +1167,7 @@ const SAMPLE_PRODUCTS = [];
 let currentLang = localStorage.getItem('atu_lang') || 'KR';
 let allProducts  = [];
 let currentCat   = '전체';
+let dataLoaded   = false;
 
 /* ─── 5. 언어 전환 ────────────────────────────────────────── */
 /* ─── 16. 영업 상태 표시 ─────────────────────────────────────── */
@@ -1237,6 +1260,7 @@ function getProductName(p) {
 }
 
 function renderProducts() {
+  if (!dataLoaded) return;
   const t    = i18n[currentLang];
   const grid = document.getElementById('productsGrid');
   const data = currentCat === '전체'
@@ -1290,6 +1314,7 @@ async function loadProducts() {
   } else {
     allProducts = SAMPLE_PRODUCTS;
   }
+  dataLoaded = true;
   document.getElementById('productsLoading').style.display = 'none';
   renderProducts();
 }
@@ -1354,5 +1379,11 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
+
+<!-- ── 이미지 모달 ── -->
+<div id="imgModal" onclick="this.classList.remove('open')">
+  <span class="modal-close" onclick="document.getElementById('imgModal').classList.remove('open')">&times;</span>
+  <img id="imgModalImg" src="" alt="" onclick="event.stopPropagation()" />
+</div>
 </body>
 </html>
