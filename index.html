@@ -1276,7 +1276,8 @@ function renderProducts() {
     <div class="product-card">
       <div class="product-thumb">
         ${p.img
-          ? `<img src="${p.img}" alt="${getProductName(p)}" loading="lazy"
+          ? `<img src="${p.img}" alt="${getProductName(p)}" loading="lazy" style="cursor:zoom-in"
+                  onclick="document.getElementById('imgModalImg').src=this.src;document.getElementById('imgModal').classList.add('open')"
                   onerror="this.parentElement.innerHTML='<div class=\\'product-thumb-placeholder\\'>🛒</div>'" />`
           : `<div class="product-thumb-placeholder">🛒</div>`}
       </div>
