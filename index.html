@@ -334,8 +334,13 @@
     }
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(11, 1fr);
       gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
     .product-card {
       background: var(--white); border-radius: var(--radius);
@@ -1318,7 +1323,7 @@ let currentCat    = '전체';
 let currentSearch = '';
 let dataLoaded   = false;
 let currentPage  = 1;
-const PAGE_SIZE_PC = 24;
+const PAGE_SIZE_PC = 33;
 const PAGE_SIZE_MB = 9;
 function getPageSize() { return window.innerWidth <= 768 ? PAGE_SIZE_MB : PAGE_SIZE_PC; }
 
