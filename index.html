@@ -346,11 +346,17 @@
       background: var(--white); border-radius: var(--radius);
       overflow: hidden; box-shadow: var(--shadow);
       transition: transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column;
     }
     .product-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
+    .product-card:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .product-info { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
     .product-thumb {
       aspect-ratio: 1 / 1; overflow: hidden;
       background: var(--gray-100);
@@ -360,7 +366,6 @@
     .product-thumb-placeholder {
       font-size: 36px; color: var(--gray-400);
     }
-    .product-info { padding: 12px 14px 14px; }
     .product-cat {
       font-size: 11px; font-weight: 600; color: var(--orange);
       text-transform: uppercase; letter-spacing: 0.06em;
@@ -478,8 +483,8 @@
       color: var(--gray-700); margin-bottom: 6px;
     }
     .form-group input, .form-group textarea, .form-group select {
-      width: 100%; padding: 10px 14px;
-      border: 1.5px solid var(--gray-100); border-radius: 8px;
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid var(--gray-100); border-radius: 10px;
       font-family: inherit; font-size: 14px; color: var(--black);
       transition: border-color .2s;
       background: var(--white);
@@ -487,7 +492,15 @@
     .form-group input:focus, .form-group textarea:focus {
       outline: none; border-color: var(--red);
     }
-    .form-group textarea { height: 100px; resize: vertical; }
+    .form-group textarea { height: 120px; resize: vertical; }
+    @media (max-width: 900px) {
+      .form-group input, .form-group textarea, .form-group select {
+        font-size: 16px; /* iOS 자동 줌 방지 */
+        padding: 14px 16px;
+      }
+      .form-group textarea { height: 140px; }
+      .form-submit { padding: 16px; font-size: 16px; }
+    }
     .form-submit {
       width: 100%; padding: 13px;
       background: var(--red); color: var(--white);
@@ -854,18 +867,6 @@
     <p id="countryGuideText" style="font-size:14px; color:var(--gray-700); line-height:1.7; margin:0;"></p>
   </div>
 
-  <div style="max-width:440px; margin:0 auto 8px; position:relative;">
-    <span style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:16px; pointer-events:none; color:var(--gray-400);">🔍</span>
-    <input id="productSearch" type="text" placeholder="상품 검색..." data-i18n-placeholder="search_placeholder"
-      style="width:100%; padding:12px 44px 12px 42px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border-color .2s, box-shadow .2s; box-sizing:border-box;"
-      onfocus="this.style.borderColor='var(--red)';this.style.boxShadow='0 0 0 3px rgba(220,38,38,0.1)'"
-      onblur="this.style.borderColor='var(--gray-100)';this.style.boxShadow='none'"
-      oninput="onSearchInput(this.value)">
-    <button id="searchClearBtn" onclick="clearSearch()" title="검색 지우기"
-      style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--gray-200); border:none; cursor:pointer; width:22px; height:22px; border-radius:50%; font-size:14px; color:var(--gray-600); line-height:1; padding:0; display:none; align-items:center; justify-content:center;">×</button>
-  </div>
-  <div id="searchResultCount" style="text-align:center; font-size:13px; color:var(--gray-400); margin-bottom:16px; min-height:20px; transition:opacity .2s;"></div>
-
   <div class="cat-tabs" id="catTabs">
     <button class="cat-tab active" data-cat="전체"    data-i18n="cat_all">전체</button>
     <button class="cat-tab" data-cat="면_라면"        data-i18n="cat_noodles">면/라면</button>
@@ -888,6 +889,18 @@
     <button class="cat-tab" data-cat="건기식"         data-i18n="cat_health">건기식</button>
     <button class="cat-tab" data-cat="냉동_냉장"      data-i18n="cat_frozen">냉동/냉장</button>
   </div>
+
+  <div style="max-width:440px; margin:16px auto 8px; position:relative;">
+    <span style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:16px; pointer-events:none; color:var(--gray-400);">🔍</span>
+    <input id="productSearch" type="text" placeholder="상품 검색..." data-i18n-placeholder="search_placeholder"
+      style="width:100%; padding:12px 44px 12px 42px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border-color .2s, box-shadow .2s; box-sizing:border-box;"
+      onfocus="this.style.borderColor='var(--red)';this.style.boxShadow='0 0 0 3px rgba(220,38,38,0.1)'"
+      onblur="this.style.borderColor='var(--gray-100)';this.style.boxShadow='none'"
+      oninput="onSearchInput(this.value)">
+    <button id="searchClearBtn" onclick="clearSearch()" title="검색 지우기"
+      style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--gray-200); border:none; cursor:pointer; width:22px; height:22px; border-radius:50%; font-size:14px; color:var(--gray-600); line-height:1; padding:0; display:none; align-items:center; justify-content:center;">×</button>
+  </div>
+  <div id="searchResultCount" style="text-align:center; font-size:13px; color:var(--gray-400); margin-bottom:16px; min-height:20px; transition:opacity .2s;"></div>
 
   <div id="productsGrid" class="products-grid">
     <div class="products-loading" id="productsLoading" data-i18n="products_loading">상품을 불러오는 중...</div>
@@ -1054,15 +1067,15 @@
 
         <div class="form-group">
           <label data-i18n="form_name">이름 / 회사명</label>
-          <input type="text" name="name" required placeholder="홍길동 / 홍길동식당" />
+          <input type="text" name="name" required placeholder="홍길동 / 홍길동식당" autocomplete="name" />
         </div>
         <div class="form-group">
           <label data-i18n="form_phone">연락처</label>
-          <input type="tel" name="phone" placeholder="010-0000-0000" />
+          <input type="tel" name="phone" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" />
         </div>
         <div class="form-group">
           <label data-i18n="form_email">이메일</label>
-          <input type="email" name="email" placeholder="example@email.com" />
+          <input type="email" name="email" placeholder="example@email.com" inputmode="email" autocomplete="email" />
         </div>
         <div class="form-group">
           <label data-i18n="form_type">문의 유형</label>
@@ -1542,8 +1555,11 @@ document.getElementById('catTabs').addEventListener('click', e => {
   const btn = e.target.closest('.cat-tab');
   if (!btn) return;
   currentCat = btn.dataset.cat;
+  currentPage = 1;
   document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  // 모바일: 선택된 탭을 스크롤 중앙으로
+  btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   renderProducts();
 });
 
