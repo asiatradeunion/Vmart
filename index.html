@@ -646,6 +646,57 @@
 .page-btn:hover { border-color: var(--red); color: var(--red); }
 .page-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
 .page-dots { color: var(--gray-400); font-size: 14px; padding: 0 4px; }
+
+/* ─── 인기 카테고리 바로가기 ────────────────────────────────── */
+.quick-cats {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin: 0 0 28px;
+}
+.quick-cat {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  background: var(--white); border: 1.5px solid var(--gray-100);
+  border-radius: 14px; padding: 12px 16px;
+  cursor: pointer; transition: all .2s; min-width: 72px;
+}
+.quick-cat:hover, .quick-cat.active {
+  border-color: var(--red); background: var(--red-light);
+}
+.quick-cat-icon { font-size: 22px; line-height: 1; }
+.quick-cat-name { font-size: 11px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+.quick-cat:hover .quick-cat-name, .quick-cat.active .quick-cat-name { color: var(--red); }
+@media (max-width: 600px) {
+  .quick-cats { gap: 8px; }
+  .quick-cat { padding: 10px 12px; min-width: 62px; border-radius: 12px; }
+  .quick-cat-icon { font-size: 20px; }
+  .quick-cat-name { font-size: 10px; }
+}
+
+/* ─── 하단 탭바 ─────────────────────────────────────────────── */
+.bottom-tab-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 990;
+  background: var(--white); border-top: 1px solid var(--gray-100);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+  height: 58px;
+}
+.bottom-tab-bar nav {
+  display: flex; height: 100%;
+}
+.tab-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 3px;
+  cursor: pointer; background: none; border: none; font-family: inherit;
+  color: var(--gray-400); transition: color .2s; text-decoration: none;
+  padding: 6px 0 8px;
+}
+.tab-item.active, .tab-item:hover { color: var(--red); }
+.tab-item svg { width: 22px; height: 22px; }
+.tab-item span { font-size: 10px; font-weight: 600; }
+@media (max-width: 900px) {
+  .bottom-tab-bar { display: block; }
+  body { padding-bottom: 58px; }
+  .float-wrap { bottom: 72px; }
+}
 </style>
 </head>
 <body>
@@ -826,6 +877,17 @@
       style="width:100%; padding:12px 20px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border .2s;"
       onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--gray-100)'"
       oninput="filterBySearch(this.value)">
+  </div>
+
+  <div class="quick-cats" id="quickCats">
+    <button class="quick-cat" onclick="selectQuickCat('면_라면',this)"><span class="quick-cat-icon">🍜</span><span class="quick-cat-name" data-i18n="cat_noodles">면/라면</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('소스',this)"><span class="quick-cat-icon">🌶️</span><span class="quick-cat-name" data-i18n="cat_sauce">소스</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('통조림',this)"><span class="quick-cat-icon">🥫</span><span class="quick-cat-name" data-i18n="cat_canned">통조림</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('냉동_냉장',this)"><span class="quick-cat-icon">❄️</span><span class="quick-cat-name" data-i18n="cat_frozen">냉동/냉장</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('육류',this)"><span class="quick-cat-icon">🥩</span><span class="quick-cat-name" data-i18n="cat_meat">육류</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('해산물',this)"><span class="quick-cat-icon">🐟</span><span class="quick-cat-name" data-i18n="cat_seafood">해산물</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('음료_커피',this)"><span class="quick-cat-icon">🧋</span><span class="quick-cat-name" data-i18n="cat_drink">음료/커피</span></button>
+    <button class="quick-cat" onclick="selectQuickCat('스낵_절임',this)"><span class="quick-cat-icon">🍘</span><span class="quick-cat-name" data-i18n="cat_snack">스낵/절임</span></button>
   </div>
 
   <div class="cat-tabs" id="catTabs">
@@ -1567,6 +1629,39 @@ function updateCountryGuide(lang) {
   if (textEl) textEl.textContent = guide.text;
 }
 
+
+/* ─── 인기 카테고리 바로가기 ────────────────────────────────── */
+function selectQuickCat(cat, el) {
+  currentCat = cat;
+  currentPage = 1;
+  document.querySelectorAll('.quick-cat').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.cat-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === cat);
+  });
+  renderProducts();
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+
+/* ─── 하단 탭바 활성화 ──────────────────────────────────────── */
+function setActiveTab(el) {
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+// 스크롤로 탭 자동 활성화
+window.addEventListener('scroll', () => {
+  const sections = ['home','products','gallery','contact'];
+  const tabs = document.querySelectorAll('.tab-item');
+  let current = 'home';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) current = id;
+  });
+  tabs.forEach(t => {
+    t.classList.toggle('active', t.getAttribute('href') === '#' + current);
+  });
+}, {passive: true});
+
 /* ─── 14. 초기화 ─────────────────────────────────────────── */
 applyLang(currentLang);
 loadProducts();
@@ -1643,6 +1738,29 @@ window.addEventListener('scroll', () => {
   document.getElementById('scrollTopBtn').classList.toggle('show', window.scrollY > 300);
 });
 </script>
+
+<!-- ── 하단 탭바 (모바일) ───────────────────────────────────── -->
+<div class="bottom-tab-bar" id="bottomTabBar">
+  <nav>
+    <a href="#home" class="tab-item" onclick="setActiveTab(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      <span data-i18n="nav_home">홈</span>
+    </a>
+    <a href="#products" class="tab-item" onclick="setActiveTab(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.56l1.65-8.44H6"/></svg>
+      <span data-i18n="nav_products">상품</span>
+    </a>
+    <a href="#gallery" class="tab-item" onclick="setActiveTab(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+      <span data-i18n="nav_gallery">갤러리</span>
+    </a>
+    <a href="#contact" class="tab-item" onclick="setActiveTab(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span data-i18n="nav_contact">문의</span>
+    </a>
+  </nav>
+</div>
+
 
 </body>
 </html>
