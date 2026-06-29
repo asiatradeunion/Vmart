@@ -96,7 +96,7 @@
     .hero-about-label { font-size: 12px; font-weight: 700; color: var(--orange); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
     .hero-about-title { font-size: 22px; font-weight: 700; color: white; margin-bottom: 8px; }
     .hero-about-desc { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.7; }
-    @media (min-width: 901px) { #about { display: none; } }
+    #about { display: none; }
 
     .hero-feature-cards {
       display: grid;
@@ -1049,6 +1049,8 @@
      JAVASCRIPT
      ══════════════════════════════════════════════════════════ -->
 <script>
+history.scrollRestoration = 'manual';
+
 /* ─── 1. 구글 시트 설정 ────────────────────────────────────────
    구글 스프레드시트를 "웹에 게시"(파일 > 공유 > 웹에 게시 > CSV)한 후
    아래 URL에 붙여넣으세요.
@@ -1077,6 +1079,7 @@ const i18n = {
     products_label: 'Products', products_title: '상품 목록',
     products_desc: '동남아 인기 상품을 카테고리별로 둘러보세요.',
     products_loading: '상품을 불러오는 중...',
+    search_placeholder: '🔍 상품 검색...',
     cat_all: '전체', cat_noodles: '면/라면', cat_sauce: '소스',
     cat_canned: '통조림', cat_seasoning: '조미료', cat_dairy: '유제품',
     cat_snack: '스낵/절임', cat_drink: '음료/커피', cat_fruit: '과일',
@@ -1121,6 +1124,7 @@ const i18n = {
     products_label: 'Products', products_title: 'Product List',
     products_desc: 'Browse our Southeast Asian grocery selection by category.',
     products_loading: 'Loading products...',
+    search_placeholder: '🔍 Search products...',
     cat_all: 'All', cat_noodles: 'Noodles', cat_sauce: 'Sauce',
     cat_canned: 'Canned', cat_seasoning: 'Seasoning', cat_dairy: 'Dairy',
     cat_snack: 'Snacks/Pickled', cat_drink: 'Drinks & Coffee', cat_fruit: 'Fruit',
@@ -1165,6 +1169,7 @@ const i18n = {
     products_label: 'Sản phẩm', products_title: 'Danh sách sản phẩm',
     products_desc: 'Khám phá các sản phẩm Đông Nam Á theo danh mục.',
     products_loading: 'Đang tải sản phẩm...',
+    search_placeholder: '🔍 Tìm kiếm sản phẩm...',
     cat_all: 'Tất cả', cat_noodles: 'Mì/Bún', cat_sauce: 'Nước chấm',
     cat_canned: 'Đồ hộp', cat_seasoning: 'Gia vị', cat_dairy: 'Sữa & Phô mai',
     cat_snack: 'Bánh kẹo/Dưa muối', cat_drink: 'Đồ uống & Cà phê', cat_fruit: 'Trái cây',
@@ -1209,6 +1214,7 @@ const i18n = {
     products_label: 'สินค้า', products_title: 'รายการสินค้า',
     products_desc: 'เลือกชมสินค้าเอเชียตะวันออกเฉียงใต้ตามหมวดหมู่',
     products_loading: 'กำลังโหลดสินค้า...',
+    search_placeholder: '🔍 ค้นหาสินค้า...',
     cat_all: 'ทั้งหมด', cat_noodles: 'บะหมี่/เส้น', cat_sauce: 'ซอส',
     cat_canned: 'อาหารกระป๋อง', cat_seasoning: 'เครื่องปรุง', cat_dairy: 'นม & ชีส',
     cat_snack: 'ขนม/ดอง', cat_drink: 'เครื่องดื่ม/กาแฟ', cat_fruit: 'ผลไม้',
@@ -1289,6 +1295,10 @@ function applyLang(lang) {
         el.innerHTML = t[key].replace(/\n/g, '<br/>');
       }
     }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
   });
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
@@ -1479,6 +1489,29 @@ function filterBySearch(query) {
     const cat = card.dataset.cat || '';
     card.style.display = (!q || name.includes(q) || cat.includes(q)) ? '' : 'none';
   });
+}
+
+/* ─── 16-b. 페이지네이션 렌더 ──────────────────────────────── */
+function renderPagination(cur, total) {
+  const div = document.getElementById('pagination');
+  if (!div) return;
+  if (total <= 1) { div.innerHTML = ''; return; }
+  let html = '';
+  if (cur > 1) html += `<button class="page-btn" onclick="goPage(${cur-1})">‹</button>`;
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || Math.abs(i - cur) <= 1) {
+      html += `<button class="page-btn${i === cur ? ' active' : ''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (Math.abs(i - cur) === 2) {
+      html += `<span class="page-dots">…</span>`;
+    }
+  }
+  if (cur < total) html += `<button class="page-btn" onclick="goPage(${cur+1})">›</button>`;
+  div.innerHTML = html;
+}
+function goPage(page) {
+  currentPage = page;
+  renderProducts();
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
 }
 
 /* ─── 17. 국가별 쇼핑 가이드 ────────────────────────────────── */
