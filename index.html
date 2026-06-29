@@ -647,29 +647,6 @@
 .page-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
 .page-dots { color: var(--gray-400); font-size: 14px; padding: 0 4px; }
 
-/* ─── 인기 카테고리 바로가기 ────────────────────────────────── */
-.quick-cats {
-  display: flex; gap: 10px; flex-wrap: wrap;
-  margin: 0 0 28px;
-}
-.quick-cat {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  background: var(--white); border: 1.5px solid var(--gray-100);
-  border-radius: 14px; padding: 12px 16px;
-  cursor: pointer; transition: all .2s; min-width: 72px;
-}
-.quick-cat:hover, .quick-cat.active {
-  border-color: var(--red); background: var(--red-light);
-}
-.quick-cat-icon { font-size: 22px; line-height: 1; }
-.quick-cat-name { font-size: 11px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
-.quick-cat:hover .quick-cat-name, .quick-cat.active .quick-cat-name { color: var(--red); }
-@media (max-width: 600px) {
-  .quick-cats { gap: 8px; }
-  .quick-cat { padding: 10px 12px; min-width: 62px; border-radius: 12px; }
-  .quick-cat-icon { font-size: 20px; }
-  .quick-cat-name { font-size: 10px; }
-}
 
 /* ─── 하단 탭바 ─────────────────────────────────────────────── */
 .bottom-tab-bar {
@@ -877,17 +854,6 @@
       style="width:100%; padding:12px 20px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border .2s;"
       onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--gray-100)'"
       oninput="filterBySearch(this.value)">
-  </div>
-
-  <div class="quick-cats" id="quickCats">
-    <button class="quick-cat" onclick="selectQuickCat('면_라면',this)"><span class="quick-cat-icon">🍜</span><span class="quick-cat-name" data-i18n="cat_noodles">면/라면</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('소스',this)"><span class="quick-cat-icon">🌶️</span><span class="quick-cat-name" data-i18n="cat_sauce">소스</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('통조림',this)"><span class="quick-cat-icon">🥫</span><span class="quick-cat-name" data-i18n="cat_canned">통조림</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('냉동_냉장',this)"><span class="quick-cat-icon">❄️</span><span class="quick-cat-name" data-i18n="cat_frozen">냉동/냉장</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('육류',this)"><span class="quick-cat-icon">🥩</span><span class="quick-cat-name" data-i18n="cat_meat">육류</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('해산물',this)"><span class="quick-cat-icon">🐟</span><span class="quick-cat-name" data-i18n="cat_seafood">해산물</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('음료_커피',this)"><span class="quick-cat-icon">🧋</span><span class="quick-cat-name" data-i18n="cat_drink">음료/커피</span></button>
-    <button class="quick-cat" onclick="selectQuickCat('스낵_절임',this)"><span class="quick-cat-icon">🍘</span><span class="quick-cat-name" data-i18n="cat_snack">스낵/절임</span></button>
   </div>
 
   <div class="cat-tabs" id="catTabs">
@@ -1630,18 +1596,6 @@ function updateCountryGuide(lang) {
 }
 
 
-/* ─── 인기 카테고리 바로가기 ────────────────────────────────── */
-function selectQuickCat(cat, el) {
-  currentCat = cat;
-  currentPage = 1;
-  document.querySelectorAll('.quick-cat').forEach(b => b.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.querySelectorAll('.cat-tab').forEach(b => {
-    b.classList.toggle('active', b.dataset.cat === cat);
-  });
-  renderProducts();
-  document.getElementById('products').scrollIntoView({behavior:'smooth'});
-}
 
 /* ─── 하단 탭바 활성화 ──────────────────────────────────────── */
 function setActiveTab(el) {
