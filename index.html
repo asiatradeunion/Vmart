@@ -854,12 +854,17 @@
     <p id="countryGuideText" style="font-size:14px; color:var(--gray-700); line-height:1.7; margin:0;"></p>
   </div>
 
-  <div style="max-width:400px; margin:0 auto 24px; position:relative;">
-    <input id="productSearch" type="text" placeholder="🔍 상품 검색..." data-i18n-placeholder="search_placeholder"
-      style="width:100%; padding:12px 20px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border .2s;"
-      onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--gray-100)'"
-      oninput="filterBySearch(this.value)">
+  <div style="max-width:440px; margin:0 auto 8px; position:relative;">
+    <span style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:16px; pointer-events:none; color:var(--gray-400);">🔍</span>
+    <input id="productSearch" type="text" placeholder="상품 검색..." data-i18n-placeholder="search_placeholder"
+      style="width:100%; padding:12px 44px 12px 42px; border:2px solid var(--gray-100); border-radius:30px; font-size:15px; font-family:inherit; outline:none; transition:border-color .2s, box-shadow .2s; box-sizing:border-box;"
+      onfocus="this.style.borderColor='var(--red)';this.style.boxShadow='0 0 0 3px rgba(220,38,38,0.1)'"
+      onblur="this.style.borderColor='var(--gray-100)';this.style.boxShadow='none'"
+      oninput="onSearchInput(this.value)">
+    <button id="searchClearBtn" onclick="clearSearch()" title="검색 지우기"
+      style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--gray-200); border:none; cursor:pointer; width:22px; height:22px; border-radius:50%; font-size:14px; color:var(--gray-600); line-height:1; padding:0; display:none; align-items:center; justify-content:center;">×</button>
   </div>
+  <div id="searchResultCount" style="text-align:center; font-size:13px; color:var(--gray-400); margin-bottom:16px; min-height:20px; transition:opacity .2s;"></div>
 
   <div class="cat-tabs" id="catTabs">
     <button class="cat-tab active" data-cat="전체"    data-i18n="cat_all">전체</button>
@@ -1486,8 +1491,23 @@ function renderProducts() {
   const grid = document.getElementById('productsGrid');
   const filtered = getFilteredProducts();
 
+  const countEl = document.getElementById('searchResultCount');
+  if (countEl) {
+    if (currentSearch) {
+      countEl.innerHTML = filtered.length > 0
+        ? `<span style="color:var(--red);font-weight:600;">"${currentSearch}"</span> 검색 결과 ${filtered.length}개`
+        : '';
+    } else {
+      countEl.textContent = '';
+    }
+  }
+
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="products-loading" style="animation:none;">${currentSearch ? '검색 결과가 없습니다.' : '상품이 없습니다.'}</div>`;
+    grid.innerHTML = `<div class="products-loading" style="animation:none; display:flex; flex-direction:column; align-items:center; gap:8px; padding:48px 0;">
+      <span style="font-size:36px;">🔍</span>
+      <p style="font-size:15px; color:var(--gray-600); margin:0;">"<strong>${currentSearch}</strong>" 검색 결과가 없습니다.</p>
+      <button onclick="clearSearch()" style="margin-top:8px; padding:8px 20px; border:1.5px solid var(--red); border-radius:20px; background:none; color:var(--red); font-size:13px; cursor:pointer; font-family:inherit;">검색 지우기</button>
+    </div>`;
     renderPagination(0, 0);
     return;
   }
@@ -1509,7 +1529,7 @@ function renderProducts() {
       </div>
       <div class="product-info">
         <p class="product-cat">${getCatName(p.cat)}</p>
-        <p class="product-name">${getProductName(p)}</p>
+        <p class="product-name">${highlightText(getProductName(p), currentSearch)}</p>
         ${p.price ? `<p class="product-price">₩ ${p.price.toLocaleString()}</p>` : ''}
       </div>
     </div>
@@ -1553,13 +1573,31 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 });
 
 /* ─── 15. 상품 검색 ─────────────────────────────────────────── */
-function filterBySearch(query) {
-  const q = query.trim().toLowerCase();
-  document.querySelectorAll('.product-card').forEach(card => {
-    const name = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
-    const cat = card.dataset.cat || '';
-    card.style.display = (!q || name.includes(q) || cat.includes(q)) ? '' : 'none';
-  });
+let _searchTimer = null;
+function onSearchInput(val) {
+  clearTimeout(_searchTimer);
+  _searchTimer = setTimeout(() => {
+    currentSearch = val.trim();
+    currentPage = 1;
+    const clearBtn = document.getElementById('searchClearBtn');
+    if (clearBtn) { clearBtn.style.display = currentSearch ? 'flex' : 'none'; }
+    renderProducts();
+  }, 250);
+}
+function clearSearch() {
+  const inp = document.getElementById('productSearch');
+  if (inp) { inp.value = ''; inp.focus(); }
+  const clearBtn = document.getElementById('searchClearBtn');
+  if (clearBtn) clearBtn.style.display = 'none';
+  currentSearch = '';
+  currentPage = 1;
+  renderProducts();
+}
+function highlightText(text, query) {
+  if (!query || !text) return text || '';
+  const esc = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(${esc})`, 'gi'),
+    '<mark style="background:#ffe066;border-radius:2px;padding:0 1px;font-style:normal;">$1</mark>');
 }
 
 /* ─── 16-b. 페이지네이션 렌더 ──────────────────────────────── */
