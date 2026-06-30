@@ -23,7 +23,9 @@
       --white:      #FFFFFF;
       --gray-50:    #F8F8F8;
       --gray-100:   #EBEBEB;
+      --gray-200:   #D4D4D4;
       --gray-400:   #999999;
+      --gray-600:   #666666;
       --gray-700:   #444444;
       --black:      #1A1A1A;
       --nav-h:      64px;
@@ -1541,7 +1543,7 @@ function renderProducts() {
         ${p.img
           ? `<img src="${p.img}" alt="${getProductName(p)}" loading="lazy" style="cursor:zoom-in"
                   onclick="openProductImg(this.src)"
-                  onerror="this.parentElement.innerHTML='<div class=\\'product-thumb-placeholder\\'>🖼️<br>${(i18n[currentLang]||i18n.KR).img_preparing.replace('\\n','<br>')}</div>'" />`
+                  onerror="this.parentElement.innerHTML='<div class=\\'product-thumb-placeholder\\'>🖼️<br>${(i18n[currentLang]||i18n.KR).img_preparing.replace('\n','<br>')}</div>'" />`
           : `<div class="product-thumb-placeholder">🖼️<br>${(i18n[currentLang]||i18n.KR).img_preparing.replace('\n','<br>')}</div>`}
       </div>
       <div class="product-info">
