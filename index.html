@@ -1193,6 +1193,7 @@ const i18n = {
     form_type_wholesale: '도소매 문의', form_type_buyer: '바이어 파트너십', form_type_etc: '기타',
     form_submit: '문의 보내기', form_success: '✅ 문의가 접수되었습니다. 빠르게 연락드리겠습니다!',
     footer_tagline: '아시아 트레이드 유니온(ATU) 직영\n동남아시아 식품 전문 마트\n전주시외버스터미널 1층',
+    img_preparing: '이미지\n준비중',
   },
 
   EN: {
@@ -1238,6 +1239,7 @@ const i18n = {
     form_type_wholesale: 'Wholesale', form_type_buyer: 'Buyer Partnership', form_type_etc: 'Other',
     form_submit: 'Send Message', form_success: '✅ Message received! We\'ll get back to you soon.',
     footer_tagline: 'Operated by Asia Trade Union (ATU)\nSoutheast Asian Specialty Grocery\nJeonju Intercity Bus Terminal 1F',
+    img_preparing: 'Image\nComing Soon',
   },
 
   VN: {
@@ -1283,6 +1285,7 @@ const i18n = {
     form_type_wholesale: 'Mua sỉ', form_type_buyer: 'Hợp tác nhập hàng', form_type_etc: 'Khác',
     form_submit: 'Gửi liên hệ', form_success: '✅ Đã nhận! Chúng tôi sẽ phản hồi sớm.',
     footer_tagline: 'Thuộc Asia Trade Union (ATU)\nSiêu thị thực phẩm Đông Nam Á\nTầng 1 Bến xe Jeonju',
+    img_preparing: 'Hình ảnh\nSắp có',
   },
 
   TH: {
@@ -1328,6 +1331,7 @@ const i18n = {
     form_type_wholesale: 'ขายส่ง', form_type_buyer: 'พาร์ทเนอร์นำเข้า', form_type_etc: 'อื่นๆ',
     form_submit: 'ส่งข้อความ', form_success: '✅ ได้รับข้อความแล้ว! เราจะติดต่อกลับเร็วๆ นี้',
     footer_tagline: 'ดำเนินการโดย Asia Trade Union (ATU)\nซูเปอร์มาร์เก็ตเอเชียตะวันออกเฉียงใต้\nชั้น 1 สถานีขนส่งเมือง จอนจู',
+    img_preparing: 'รูปภาพ\nกำลังเตรียม',
   }
 };
 
@@ -1537,8 +1541,8 @@ function renderProducts() {
         ${p.img
           ? `<img src="${p.img}" alt="${getProductName(p)}" loading="lazy" style="cursor:zoom-in"
                   onclick="openProductImg(this.src)"
-                  onerror="this.parentElement.innerHTML='<div class=\\'product-thumb-placeholder\\'>🖼️<br>이미지<br>준비중</div>'" />`
-          : `<div class="product-thumb-placeholder">🖼️<br>이미지<br>준비중</div>`}
+                  onerror="this.parentElement.innerHTML='<div class=\\'product-thumb-placeholder\\'>🖼️<br>${(TRANSLATIONS[currentLang]||TRANSLATIONS.KR).img_preparing.replace('\n','<br>')}</div>'" />`
+          : `<div class="product-thumb-placeholder">🖼️<br>${(TRANSLATIONS[currentLang]||TRANSLATIONS.KR).img_preparing.replace('\n','<br>')}</div>`}
       </div>
       <div class="product-info">
         <p class="product-cat">${getCatName(p.cat)}</p>
