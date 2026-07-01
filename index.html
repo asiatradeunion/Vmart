@@ -451,68 +451,105 @@
 
     /* ─── Contact ────────────────────────────────────────────── */
     #contact { background: var(--gray-50); }
+    /* ── Contact: Dark Sidebar Layout ─────────────────────── */
     .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 48px; margin-top: 48px; align-items: start;
+      display: grid; grid-template-columns: 360px 1fr;
+      gap: 0; margin-top: 48px; align-items: stretch;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,.13);
     }
-    .contact-info { display: flex; flex-direction: column; gap: 20px; }
-    .info-card {
-      background: var(--white); border-radius: var(--radius);
-      padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
-      box-shadow: var(--shadow);
+    /* Left: Red sidebar */
+    .contact-sidebar {
+      background: var(--red);
+      padding: 40px 32px;
+      display: flex; flex-direction: column;
     }
-    .info-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: var(--red-light); flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
+    .sidebar-brand { margin-bottom: 32px; }
+    .sidebar-brand-name {
+      font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.5px;
     }
-    .info-label {
-      font-size: 11px; font-weight: 700; color: var(--gray-400);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin-bottom: 4px;
+    .sidebar-brand-sub {
+      font-size: 12px; color: rgba(255,255,255,.6); margin-top: 5px; line-height: 1.5;
     }
-    .info-value {
-      font-size: 14px; font-weight: 600; color: var(--black); line-height: 1.5;
+    .sidebar-info-list {
+      display: flex; flex-direction: column; gap: 22px; flex: 1;
     }
-    .info-value a { color: var(--red); }
+    .sidebar-info-item { display: flex; gap: 14px; align-items: flex-start; }
+    .sidebar-info-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,.18); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 17px;
+    }
+    .sidebar-info-label {
+      font-size: 10px; font-weight: 700; color: rgba(255,255,255,.55);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px;
+    }
+    .sidebar-info-value {
+      font-size: 14px; font-weight: 600; color: #fff; line-height: 1.55;
+    }
+    .sidebar-info-value a { color: rgba(255,255,255,.85); }
+    .sidebar-divider {
+      height: 1px; background: rgba(255,255,255,.18); margin: 28px 0 24px;
+    }
+    .sidebar-sns-label {
+      font-size: 10px; font-weight: 700; color: rgba(255,255,255,.55);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px;
+    }
+    .sidebar-sns-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sns-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 14px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.12);
+      font-size: 13px; font-weight: 600; color: #fff;
+      cursor: pointer; text-decoration: none; transition: all .2s;
+    }
+    .sns-btn:hover { color: #fff; border-color: transparent; }
+    .sns-btn.kakao:hover  { background: #FEE500; color: #3C1E1E; border-color: #FEE500; }
+    .sns-btn.insta:hover  { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); border-color: transparent; }
+    .sns-btn.facebook:hover { background: #1877F2; border-color: #1877F2; }
 
+    /* Right: Map + Form */
+    .contact-main {
+      background: var(--white);
+      padding: 36px 36px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .map-toggle { display: flex; gap: 8px; margin-bottom: 10px; }
+    .map-toggle-btn {
+      padding: 5px 16px; border-radius: 20px; border: none;
+      font-size: 12px; font-weight: 700; cursor: pointer; transition: all .2s;
+    }
     .map-wrap {
-      border-radius: var(--radius); overflow: hidden;
-      height: 340px; background: var(--gray-100);
+      border-radius: 14px; overflow: hidden;
+      height: 210px; background: var(--gray-100); flex-shrink: 0;
     }
     .map-wrap iframe { width: 100%; height: 100%; border: 0; }
-
-    .contact-form-wrap {
-      background: var(--white); border-radius: var(--radius);
-      padding: 32px; box-shadow: var(--shadow);
-    }
     .form-title {
-      font-size: 17px; font-weight: 700; color: var(--black);
-      margin-bottom: 20px;
+      font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 14px;
     }
-    .form-group { margin-bottom: 14px; }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-group { margin-bottom: 10px; }
     .form-group label {
-      display: block; font-size: 12px; font-weight: 600;
-      color: var(--gray-700); margin-bottom: 6px;
+      display: block; font-size: 10px; font-weight: 700;
+      color: var(--gray-400); text-transform: uppercase;
+      letter-spacing: .07em; margin-bottom: 5px;
     }
     .form-group input, .form-group textarea, .form-group select {
-      width: 100%; padding: 13px 16px;
-      border: 1.5px solid var(--gray-100); border-radius: 10px;
+      width: 100%; padding: 11px 13px; box-sizing: border-box;
+      border: 1.5px solid var(--gray-100); border-radius: 8px;
       font-family: inherit; font-size: 14px; color: var(--black);
-      transition: border-color .2s;
-      background: var(--white);
+      transition: border-color .2s; background: #fafafa;
     }
-    .form-group input:focus, .form-group textarea:focus {
-      outline: none; border-color: var(--red);
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none; border-color: var(--red); background: var(--white);
     }
-    .form-group textarea { height: 120px; resize: vertical; }
+    .form-group textarea { height: 90px; resize: vertical; }
     @media (max-width: 900px) {
       .form-group input, .form-group textarea, .form-group select {
-        font-size: 16px; /* iOS 자동 줌 방지 */
-        padding: 14px 16px;
+        font-size: 16px; padding: 13px 14px; /* iOS 자동 줌 방지 */
       }
-      .form-group textarea { height: 140px; }
+      .form-group textarea { height: 120px; }
       .form-submit { padding: 16px; font-size: 16px; }
     }
     .form-submit {
@@ -523,7 +560,7 @@
     }
     .form-submit:hover { background: var(--red-dark); }
     .form-success {
-      display: none; text-align: center; padding: 20px;
+      display: none; text-align: center; padding: 16px;
       color: #2d7a2d; font-weight: 600; font-size: 14px;
     }
 
@@ -598,7 +635,10 @@
       .nav-hamburger { display: flex; }
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
       .about-badge { display: none; }
-      .contact-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; border-radius: 16px; }
+      .contact-sidebar { padding: 28px 24px; }
+      .contact-main { padding: 24px 20px; }
+      .form-grid-2 { grid-template-columns: 1fr; gap: 0; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; }
       .gallery-item--full { grid-column: span 2; height: 130px; }
       .gallery-item--wide { grid-column: span 1; }
@@ -995,121 +1035,127 @@
   <p class="section-desc" data-i18n="contact_desc">매장 방문 전 아래 정보를 확인하세요. 도소매 및 바이어 문의도 환영합니다.</p>
 
   <div class="contact-grid">
-    <div>
-      <div class="contact-info">
-        <div class="info-card">
-          <div class="info-icon">📍</div>
+
+    <!-- ── 왼쪽: 레드 사이드바 ── -->
+    <div class="contact-sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">V-Mart</div>
+        <div class="sidebar-brand-sub">아시아 트레이드 유니온(ATU) 직영<br/>동남아시아 식품 전문 마트</div>
+      </div>
+
+      <div class="sidebar-info-list">
+        <div class="sidebar-info-item">
+          <div class="sidebar-info-icon">📍</div>
           <div>
-            <p class="info-label" data-i18n="info_addr_label">주소</p>
-            <p class="info-value" data-i18n="info_addr">전북 전주시 덕진구 가리내로 30<br/>전주시외버스터미널 1층 브이마트</p>
+            <p class="sidebar-info-label" data-i18n="info_addr_label">주소</p>
+            <p class="sidebar-info-value" data-i18n="info_addr">전북 전주시 덕진구 가리내로 30<br/>전주시외버스터미널 1층 브이마트</p>
           </div>
         </div>
-        <div class="info-card">
-          <div class="info-icon">📞</div>
+        <div class="sidebar-info-item">
+          <div class="sidebar-info-icon">📞</div>
           <div>
-            <p class="info-label">연락처</p>
-            <p class="info-value"><a href="tel:16003578">1600-3578</a></p>
-            <p class="info-value" style="margin-top:4px;"><a href="mailto:ceo@atu.kr">ceo@atu.kr</a></p>
+            <p class="sidebar-info-label">연락처</p>
+            <p class="sidebar-info-value"><a href="tel:16003578">1600-3578</a></p>
+            <p class="sidebar-info-value" style="margin-top:2px;"><a href="mailto:ceo@atu.kr">ceo@atu.kr</a></p>
           </div>
         </div>
-        <div class="info-card">
-          <div class="info-icon">🕒</div>
+        <div class="sidebar-info-item">
+          <div class="sidebar-info-icon">🕒</div>
           <div style="width:100%;">
-            <p class="info-label" data-i18n="info_hours_label">영업 시간</p>
-            <p class="info-value" data-i18n="info_hours">매일 10:00 ~ 20:30 (연중무휴)</p>
-            <div id="openStatus" style="margin-top:8px; display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:20px; font-size:13px; font-weight:600;"></div>
+            <p class="sidebar-info-label" data-i18n="info_hours_label">영업 시간</p>
+            <p class="sidebar-info-value" data-i18n="info_hours">매일 10:00 ~ 20:30 (연중무휴)</p>
+            <div id="openStatus" style="margin-top:8px; display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; background:rgba(255,255,255,.2); color:#fff;"></div>
           </div>
         </div>
-        <div class="info-card" style="background:var(--red); border:none;">
-          <div style="width:100%;">
-            <p class="info-label" style="margin-bottom:12px; color:rgba(255,255,255,0.7);" data-i18n="sns_label">SNS &amp; 채널</p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <style>
-                .sns-btn { display:flex; align-items:center; gap:8px; padding:10px 18px; border-radius:10px; border:2px solid rgba(255,255,255,0.4); background:rgba(255,255,255,0.15); font-size:14px; font-weight:600; color:white; cursor:pointer; text-decoration:none; transition:all .2s; }
-                .sns-btn:hover { color:white; border-color:transparent; }
-                .sns-btn.kakao:hover { background:#FEE500; color:#3C1E1E; border-color:#FEE500; }
-                .sns-btn.insta:hover { background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); border-color:transparent; }
-                .sns-btn.facebook:hover { background:#1877F2; border-color:#1877F2; }
-              </style>
-              <a href="https://open.kakao.com/o/pFNbFUxi" target="_blank" class="sns-btn kakao">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.568 4.938 3.938 6.318L5 21l4.188-2.188C9.762 18.938 10.872 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
-                <span data-i18n="sns_kakao">카카오톡</span>
-              </a>
-              <a href="https://instagram.com/vmart_jeonju" target="_blank" class="sns-btn insta">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                <span data-i18n="sns_insta">인스타그램</span>
-              </a>
-              <a href="https://www.facebook.com/Vmart.kr" target="_blank" class="sns-btn facebook">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                <span data-i18n="sns_facebook">페이스북</span>
-              </a>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div>
+        <p class="sidebar-sns-label" data-i18n="sns_label">SNS &amp; 채널</p>
+        <div class="sidebar-sns-btns">
+          <a href="https://open.kakao.com/o/pFNbFUxi" target="_blank" class="sns-btn kakao">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.568 4.938 3.938 6.318L5 21l4.188-2.188C9.762 18.938 10.872 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+            <span data-i18n="sns_kakao">카카오톡</span>
+          </a>
+          <a href="https://instagram.com/vmart_jeonju" target="_blank" class="sns-btn insta">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span data-i18n="sns_insta">인스타그램</span>
+          </a>
+          <a href="https://www.facebook.com/Vmart.kr" target="_blank" class="sns-btn facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span data-i18n="sns_facebook">페이스북</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 오른쪽: 지도 + 문의폼 ── -->
+    <div class="contact-main">
+      <div>
+        <div class="map-toggle">
+          <button id="googleMapBtn" onclick="document.getElementById('googleMap').style.display='block'; document.getElementById('kakaoMap').style.display='none'; this.style.background='var(--red)'; this.style.color='white'; document.getElementById('kakaoMapBtn').style.background='var(--gray-100)'; document.getElementById('kakaoMapBtn').style.color='var(--gray-700)';" class="map-toggle-btn" style="background:var(--red); color:white;">구글맵</button>
+          <button id="kakaoMapBtn" onclick="document.getElementById('kakaoMap').style.display='block'; document.getElementById('googleMap').style.display='none'; this.style.background='var(--red)'; this.style.color='white'; document.getElementById('googleMapBtn').style.background='var(--gray-100)'; document.getElementById('googleMapBtn').style.color='var(--gray-700)';" class="map-toggle-btn" style="background:var(--gray-100); color:var(--gray-700);">카카오맵</button>
+        </div>
+        <div class="map-wrap">
+          <iframe id="googleMap"
+            src="https://maps.google.com/maps?q=전북+전주시+덕진구+가리내로+30&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="브이마트 위치">
+          </iframe>
+          <iframe id="kakaoMap" style="display:none;"
+            src="https://map.kakao.com/link/map/브이마트,35.8468,127.1298/embed"
+            allowfullscreen="" loading="lazy" title="브이마트 카카오맵">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <p class="form-title" data-i18n="form_title">도소매 &amp; 일반 문의</p>
+        <form id="contactForm" action="https://formsubmit.co/ceo@atu.kr" method="POST">
+          <input type="hidden" name="_subject" value="브이마트 문의" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="" />
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label data-i18n="form_name">이름 / 회사명</label>
+              <input type="text" name="name" required placeholder="홍길동 / 홍길동식당" autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_phone">연락처</label>
+              <input type="tel" name="phone" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" />
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="map-wrap" style="margin-top: 20px;">
-        <div style="display:flex; gap:8px; margin-bottom:10px;">
-          <button onclick="document.getElementById('googleMap').style.display='block'; document.getElementById('kakaoMap').style.display='none'; this.style.background='var(--red)'; this.style.color='white'; document.getElementById('kakaoMapBtn').style.background='var(--gray-100)'; document.getElementById('kakaoMapBtn').style.color='var(--gray-700)';" style="padding:6px 14px; border-radius:20px; border:none; background:var(--red); color:white; font-size:13px; font-weight:600; cursor:pointer;">구글맵</button>
-          <button id="kakaoMapBtn" onclick="document.getElementById('kakaoMap').style.display='block'; document.getElementById('googleMap').style.display='none'; this.style.background='var(--red)'; this.style.color='white'; document.getElementById('kakaoMapBtn').previousElementSibling.style.background='var(--gray-100)'; document.getElementById('kakaoMapBtn').previousElementSibling.style.color='var(--gray-700)';" style="padding:6px 14px; border-radius:20px; border:none; background:var(--gray-100); color:var(--gray-700); font-size:13px; font-weight:600; cursor:pointer;">카카오맵</button>
-        </div>
-        <iframe id="googleMap"
-          src="https://maps.google.com/maps?q=전북+전주시+덕진구+가리내로+30&t=&z=16&ie=UTF8&iwloc=&output=embed"
-          allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="브이마트 위치" style="width:100%; height:320px; border:0; border-radius:12px;">
-        </iframe>
-        <iframe id="kakaoMap" style="display:none; width:100%; height:320px; border:0; border-radius:12px;"
-          src="https://map.kakao.com/link/map/브이마트,35.8468,127.1298/embed"
-          allowfullscreen="" loading="lazy" title="브이마트 카카오맵">
-        </iframe>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label data-i18n="form_email">이메일</label>
+              <input type="email" name="email" placeholder="example@email.com" inputmode="email" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_type">문의 유형</label>
+              <select name="type">
+                <option data-i18n="form_type_general">일반 문의</option>
+                <option data-i18n="form_type_wholesale">도소매 문의</option>
+                <option data-i18n="form_type_buyer">바이어 파트너십</option>
+                <option data-i18n="form_type_etc">기타</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_msg">문의 내용</label>
+            <textarea name="message" required placeholder="문의 내용을 입력해 주세요."></textarea>
+          </div>
+          <button type="submit" class="form-submit" data-i18n="form_submit">문의 보내기</button>
+          <div class="form-success" id="formSuccess" data-i18n="form_success">
+            ✅ 문의가 접수되었습니다. 빠르게 연락드리겠습니다!
+          </div>
+        </form>
       </div>
     </div>
 
-    <div class="contact-form-wrap">
-      <p class="form-title" data-i18n="form_title">도소매 &amp; 일반 문의</p>
-      <!--
-        FormSubmit 무료 서비스 사용 (이메일 수신).
-        아래 YOUR_EMAIL 을 실제 이메일 주소로 변경하세요.
-        처음 폼 제출 시 인증 메일이 옵니다.
-      -->
-      <form id="contactForm" action="https://formsubmit.co/ceo@atu.kr" method="POST">
-        <input type="hidden" name="_subject" value="브이마트 문의" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_next" value="" />
-
-        <div class="form-group">
-          <label data-i18n="form_name">이름 / 회사명</label>
-          <input type="text" name="name" required placeholder="홍길동 / 홍길동식당" autocomplete="name" />
-        </div>
-        <div class="form-group">
-          <label data-i18n="form_phone">연락처</label>
-          <input type="tel" name="phone" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" />
-        </div>
-        <div class="form-group">
-          <label data-i18n="form_email">이메일</label>
-          <input type="email" name="email" placeholder="example@email.com" inputmode="email" autocomplete="email" />
-        </div>
-        <div class="form-group">
-          <label data-i18n="form_type">문의 유형</label>
-          <select name="type">
-            <option data-i18n="form_type_general">일반 문의</option>
-            <option data-i18n="form_type_wholesale">도소매 문의</option>
-            <option data-i18n="form_type_buyer">바이어 파트너십</option>
-            <option data-i18n="form_type_etc">기타</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label data-i18n="form_msg">문의 내용</label>
-          <textarea name="message" required placeholder="문의 내용을 입력해 주세요."></textarea>
-        </div>
-        <button type="submit" class="form-submit" data-i18n="form_submit">문의 보내기</button>
-        <div class="form-success" id="formSuccess" data-i18n="form_success">
-          ✅ 문의가 접수되었습니다. 빠르게 연락드리겠습니다!
-        </div>
-      </form>
-    </div>
   </div>
 </section>
 
@@ -1753,7 +1799,7 @@ document.addEventListener('DOMContentLoaded', function() {
   .float-top { background:var(--red); color:white; opacity:0; pointer-events:none; transition:opacity .3s; }
   .float-top.show { opacity:1; pointer-events:auto; }
   .float-mobile { display:none; }
-  @media (max-width: 900px) { .float-mobile { display:flex; } }
+  @media (max-width: 900px) { .float-mobile { display:flex; } .float-wrap { bottom: 72px; } }
 </style>
 
 <div class="float-wrap">
