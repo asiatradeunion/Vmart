@@ -1056,7 +1056,7 @@
         <div class="sidebar-info-item">
           <div class="sidebar-info-icon">📞</div>
           <div>
-            <p class="sidebar-info-label">연락처</p>
+            <p class="sidebar-info-label" data-i18n="contact_phone_label">연락처</p>
             <p class="sidebar-info-value"><a href="tel:16003578">1600-3578</a></p>
             <p class="sidebar-info-value" style="margin-top:2px;"><a href="mailto:ceo@atu.kr">ceo@atu.kr</a></p>
           </div>
@@ -1124,7 +1124,7 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label data-i18n="form_name">이름 / 회사명</label>
-              <input type="text" name="name" required placeholder="홍길동 / 홍길동식당" autocomplete="name" />
+              <input type="text" name="name" required placeholder="홍길동 / 홍길동식당" data-i18n-placeholder="form_name_ph" autocomplete="name" />
             </div>
             <div class="form-group">
               <label data-i18n="form_phone">연락처</label>
@@ -1148,7 +1148,7 @@
           </div>
           <div class="form-group">
             <label data-i18n="form_msg">문의 내용</label>
-            <textarea name="message" required placeholder="문의 내용을 입력해 주세요."></textarea>
+            <textarea name="message" required placeholder="문의 내용을 입력해 주세요." data-i18n-placeholder="form_msg_ph"></textarea>
           </div>
           <button type="submit" class="form-submit" data-i18n="form_submit">문의 보내기</button>
           <div class="form-success" id="formSuccess" data-i18n="form_success">
@@ -1254,6 +1254,8 @@ const i18n = {
     form_type: '문의 유형', form_type_general: '일반 문의',
     form_type_wholesale: '도소매 문의', form_type_buyer: '바이어 파트너십', form_type_etc: '기타',
     form_submit: '문의 보내기', form_success: '✅ 문의가 접수되었습니다. 빠르게 연락드리겠습니다!',
+    form_name_ph: '홍길동 / 홍길동식당', form_msg_ph: '문의 내용을 입력해 주세요.',
+    contact_phone_label: '연락처',
     footer_tagline: '아시아 트레이드 유니온(ATU) 직영\n동남아시아 식품 전문 마트\n전주시외버스터미널 1층',
     img_preparing: '이미지\n준비중',
   },
@@ -1300,6 +1302,8 @@ const i18n = {
     form_type: 'Inquiry Type', form_type_general: 'General',
     form_type_wholesale: 'Wholesale', form_type_buyer: 'Buyer Partnership', form_type_etc: 'Other',
     form_submit: 'Send Message', form_success: '✅ Message received! We\'ll get back to you soon.',
+    form_name_ph: 'Your name / Company', form_msg_ph: 'Enter your message here.',
+    contact_phone_label: 'Phone',
     footer_tagline: 'Operated by Asia Trade Union (ATU)\nSoutheast Asian Specialty Grocery\nJeonju Intercity Bus Terminal 1F',
     img_preparing: 'Image\nComing Soon',
   },
@@ -1346,6 +1350,8 @@ const i18n = {
     form_type: 'Loại yêu cầu', form_type_general: 'Thông thường',
     form_type_wholesale: 'Mua sỉ', form_type_buyer: 'Hợp tác nhập hàng', form_type_etc: 'Khác',
     form_submit: 'Gửi liên hệ', form_success: '✅ Đã nhận! Chúng tôi sẽ phản hồi sớm.',
+    form_name_ph: 'Họ tên / Tên công ty', form_msg_ph: 'Nhập nội dung liên hệ tại đây.',
+    contact_phone_label: 'Liên hệ',
     footer_tagline: 'Thuộc Asia Trade Union (ATU)\nSiêu thị thực phẩm Đông Nam Á\nTầng 1 Bến xe Jeonju',
     img_preparing: 'Hình ảnh\nSắp có',
   },
@@ -1392,6 +1398,8 @@ const i18n = {
     form_type: 'ประเภท', form_type_general: 'สอบถามทั่วไป',
     form_type_wholesale: 'ขายส่ง', form_type_buyer: 'พาร์ทเนอร์นำเข้า', form_type_etc: 'อื่นๆ',
     form_submit: 'ส่งข้อความ', form_success: '✅ ได้รับข้อความแล้ว! เราจะติดต่อกลับเร็วๆ นี้',
+    form_name_ph: 'ชื่อ / บริษัทของคุณ', form_msg_ph: 'กรอกข้อความของคุณที่นี่',
+    contact_phone_label: 'ติดต่อ',
     footer_tagline: 'ดำเนินการโดย Asia Trade Union (ATU)\nซูเปอร์มาร์เก็ตเอเชียตะวันออกเฉียงใต้\nชั้น 1 สถานีขนส่งเมือง จอนจู',
     img_preparing: 'รูปภาพ\nกำลังเตรียม',
   }
