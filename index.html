@@ -330,9 +330,26 @@
 
     /* ─── Products ───────────────────────────────────────────── */
     #products { background: var(--gray-50); }
+    /* ─── 국가 필터 ───────────────────────────────────────────── */
+    .country-filter {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      justify-content: center; margin: 24px 0 8px;
+    }
+    .country-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 15px; border-radius: 20px;
+      border: 1.5px solid var(--gray-200);
+      background: var(--white); color: var(--gray-700);
+      font-size: 13px; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    .cflag { width: 18px; height: auto; border-radius: 2px; vertical-align: middle; display: inline-block; }
+    .country-btn:hover { border-color: var(--red); color: var(--red); }
+    .country-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
+
     .cat-tabs {
       display: flex; gap: 8px; flex-wrap: wrap;
-      margin: 32px 0 28px;
+      margin: 16px 0 28px;
     }
     .cat-tab {
       padding: 8px 18px; border-radius: 20px;
@@ -644,6 +661,17 @@
       .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; }
       .gallery-item--full { grid-column: span 2; height: 130px; }
       .gallery-item--wide { grid-column: span 1; }
+      /* 국가 필터 가로 스크롤 */
+      .country-filter {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+      }
+      .country-filter::-webkit-scrollbar { display: none; }
+      .country-btn { flex-shrink: 0; }
       /* 카테고리 탭 가로 스크롤 */
       .cat-tabs {
         flex-wrap: nowrap;
@@ -921,6 +949,17 @@
   <div id="countryGuide" style="margin:0 0 28px; padding:16px 20px; border-radius:14px; background:var(--red-light); display:flex; align-items:center; gap:14px;">
     <img id="countryGuideFlag" src="https://flagcdn.com/w40/kr.png" width="32" style="border-radius:4px; flex-shrink:0;" />
     <p id="countryGuideText" style="font-size:14px; color:var(--gray-700); line-height:1.7; margin:0;"></p>
+  </div>
+
+  <!-- 국가 필터 -->
+  <div class="country-filter" id="countryFilter">
+    <button class="country-btn active" data-country="전체"><span class="cflag">🌏</span> 전체</button>
+    <button class="country-btn" data-country="VN"><img class="cflag" src="https://flagcdn.com/w20/vn.png" alt="VN"> 베트남</button>
+    <button class="country-btn" data-country="TH"><img class="cflag" src="https://flagcdn.com/w20/th.png" alt="TH"> 태국</button>
+    <button class="country-btn" data-country="PH"><img class="cflag" src="https://flagcdn.com/w20/ph.png" alt="PH"> 필리핀</button>
+    <button class="country-btn" data-country="KH"><img class="cflag" src="https://flagcdn.com/w20/kh.png" alt="KH"> 캄보디아</button>
+    <button class="country-btn" data-country="NP"><img class="cflag" src="https://flagcdn.com/w20/np.png" alt="NP"> 네팔</button>
+    <button class="country-btn" data-country="CH"><img class="cflag" src="https://flagcdn.com/w20/cn.png" alt="CN"> 중국</button>
   </div>
 
   <div class="cat-tabs" id="catTabs">
@@ -1209,6 +1248,7 @@ history.scrollRestoration = 'manual';
               E=카테고리  | F=가격(숫자) | G=이미지URL  | H=진열여부(Y/N)
 ──────────────────────────────────────────────────────────── */
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1W6R9szdW22w3PQESnslTA-JnWJT926ISFt4TaZWEdn4/export?format=csv&gid=1829500843';
+const COUNTRY_CSV_URL = 'https://docs.google.com/spreadsheets/d/1W6R9szdW22w3PQESnslTA-JnWJT926ISFt4TaZWEdn4/gviz/tq?tqx=out:csv&sheet=%EA%B5%AD%EA%B0%80%EB%B3%84';
 
 /* ─── 2. 다국어 번역 데이터 ──────────────────────────────────── */
 const i18n = {
@@ -1411,10 +1451,12 @@ const SAMPLE_PRODUCTS = [];
 /* ─── 4. 상태 ─────────────────────────────────────────────── */
 let currentLang = localStorage.getItem('atu_lang') || 'KR';
 let allProducts  = [];
-let currentCat    = '전체';
-let currentSearch = '';
-let dataLoaded   = false;
-let currentPage  = 1;
+let currentCat     = '전체';
+let currentCountry = '전체';
+let currentSearch  = '';
+let dataLoaded    = false;
+let currentPage   = 1;
+let countryMap    = {};
 const PAGE_SIZE_PC = 33;
 const PAGE_SIZE_MB = 9;
 function getPageSize() { return window.innerWidth <= 768 ? PAGE_SIZE_MB : PAGE_SIZE_PC; }
@@ -1496,6 +1538,17 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => applyLang(btn.dataset.lang));
 });
 
+/* ─── 9-a. 국가별 CSV 파싱 ────────────────────────────────── */
+function parseCountryCSV(text) {
+  const lines = text.trim().split('\n').slice(1); // 헤더 제외
+  const map = {};
+  for (const line of lines) {
+    const match = line.match(/^"([^"]+)","(.+)"$/);
+    if (match) map[match[2].trim()] = match[1].trim();
+  }
+  return map;
+}
+
 /* ─── 9. CSV 파싱 ─────────────────────────────────────────── */
 function parseCSV(text) {
   const lines = text.trim().split('\n');
@@ -1559,7 +1612,16 @@ function getCatName(cat) {
 }
 
 function getFilteredProducts() {
-  let list = currentCat === '전체' ? allProducts : allProducts.filter(p => p.cat === currentCat);
+  let list = allProducts;
+  // 국가 필터
+  if (currentCountry !== '전체') {
+    list = list.filter(p => p.country === currentCountry || p.country === 'ALL');
+  }
+  // 카테고리 필터
+  if (currentCat !== '전체') {
+    list = list.filter(p => p.cat === currentCat);
+  }
+  // 검색
   if (currentSearch) {
     const q = currentSearch.toLowerCase();
     list = list.filter(p =>
@@ -1624,7 +1686,18 @@ function renderProducts() {
   renderPagination(currentPage, Math.ceil(getFilteredProducts().length / getPageSize()));
 }
 
-/* ─── 11. 카테고리 탭 ─────────────────────────────────────── */
+/* ─── 11. 국가 필터 탭 ────────────────────────────────────── */
+document.getElementById('countryFilter').addEventListener('click', e => {
+  const btn = e.target.closest('.country-btn');
+  if (!btn) return;
+  currentCountry = btn.dataset.country;
+  currentPage = 1;
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+});
+
+/* ─── 11b. 카테고리 탭 ────────────────────────────────────── */
 document.getElementById('catTabs').addEventListener('click', e => {
   const btn = e.target.closest('.cat-tab');
   if (!btn) return;
@@ -1641,9 +1714,18 @@ document.getElementById('catTabs').addEventListener('click', e => {
 async function loadProducts() {
   if (SHEET_CSV_URL) {
     try {
-      const res = await fetch(SHEET_CSV_URL);
-      const txt = await res.text();
-      allProducts = parseCSV(txt);
+      const [productRes, countryRes] = await Promise.all([
+        fetch(SHEET_CSV_URL),
+        fetch(COUNTRY_CSV_URL)
+      ]);
+      const productTxt = await productRes.text();
+      const countryTxt = await countryRes.text();
+      countryMap = parseCountryCSV(countryTxt);
+      const products = parseCSV(productTxt);
+      allProducts = products.map(p => ({
+        ...p,
+        country: countryMap[p.name.trim()] || 'ALL'
+      }));
     } catch (e) {
       console.warn('구글 시트 로딩 실패, 샘플 데이터 사용:', e);
       allProducts = SAMPLE_PRODUCTS;
