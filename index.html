@@ -953,13 +953,14 @@
 
   <!-- 국가 필터 -->
   <div class="country-filter" id="countryFilter">
-    <button class="country-btn active" data-country="전체"><span class="cflag">🌏</span> 전체</button>
-    <button class="country-btn" data-country="VN"><img class="cflag" src="https://flagcdn.com/w20/vn.png" alt="VN"> 베트남</button>
-    <button class="country-btn" data-country="TH"><img class="cflag" src="https://flagcdn.com/w20/th.png" alt="TH"> 태국</button>
-    <button class="country-btn" data-country="PH"><img class="cflag" src="https://flagcdn.com/w20/ph.png" alt="PH"> 필리핀</button>
-    <button class="country-btn" data-country="KH"><img class="cflag" src="https://flagcdn.com/w20/kh.png" alt="KH"> 캄보디아</button>
-    <button class="country-btn" data-country="NP"><img class="cflag" src="https://flagcdn.com/w20/np.png" alt="NP"> 네팔</button>
-    <button class="country-btn" data-country="CH"><img class="cflag" src="https://flagcdn.com/w20/cn.png" alt="CN"> 중국</button>
+    <button class="country-btn active" data-country="전체"><span class="cflag">🌏</span><span data-i18n="country_all">전체</span></button>
+    <button class="country-btn" data-country="VN"><img class="cflag" src="https://flagcdn.com/w20/vn.png" alt="VN"><span data-i18n="country_vn">베트남</span></button>
+    <button class="country-btn" data-country="TH"><img class="cflag" src="https://flagcdn.com/w20/th.png" alt="TH"><span data-i18n="country_th">태국</span></button>
+    <button class="country-btn" data-country="PH"><img class="cflag" src="https://flagcdn.com/w20/ph.png" alt="PH"><span data-i18n="country_ph">필리핀</span></button>
+    <button class="country-btn" data-country="KH"><img class="cflag" src="https://flagcdn.com/w20/kh.png" alt="KH"><span data-i18n="country_kh">캄보디아</span></button>
+    <button class="country-btn" data-country="NP"><img class="cflag" src="https://flagcdn.com/w20/np.png" alt="NP"><span data-i18n="country_np">네팔</span></button>
+    <button class="country-btn" data-country="CH"><img class="cflag" src="https://flagcdn.com/w20/cn.png" alt="CN"><span data-i18n="country_ch">중국</span></button>
+    <button class="country-btn" data-country="ALL"><span class="cflag">🌐</span><span data-i18n="country_world">공통</span></button>
   </div>
 
   <div class="cat-tabs" id="catTabs">
@@ -1296,6 +1297,9 @@ const i18n = {
     form_submit: '문의 보내기', form_success: '✅ 문의가 접수되었습니다. 빠르게 연락드리겠습니다!',
     form_name_ph: '홍길동 / 홍길동식당', form_msg_ph: '문의 내용을 입력해 주세요.',
     contact_phone_label: '연락처',
+    country_all: '전체', country_vn: '베트남', country_th: '태국',
+    country_ph: '필리핀', country_kh: '캄보디아', country_np: '네팔',
+    country_ch: '중국', country_world: '🌐 공통',
     footer_tagline: '아시아 트레이드 유니온(ATU) 직영\n동남아시아 식품 전문 마트\n전주시외버스터미널 1층',
     img_preparing: '이미지\n준비중',
   },
@@ -1344,6 +1348,9 @@ const i18n = {
     form_submit: 'Send Message', form_success: '✅ Message received! We\'ll get back to you soon.',
     form_name_ph: 'Your name / Company', form_msg_ph: 'Enter your message here.',
     contact_phone_label: 'Phone',
+    country_all: 'All', country_vn: 'Vietnam', country_th: 'Thailand',
+    country_ph: 'Philippines', country_kh: 'Cambodia', country_np: 'Nepal',
+    country_ch: 'China', country_world: '🌐 World',
     footer_tagline: 'Operated by Asia Trade Union (ATU)\nSoutheast Asian Specialty Grocery\nJeonju Intercity Bus Terminal 1F',
     img_preparing: 'Image\nComing Soon',
   },
@@ -1392,6 +1399,9 @@ const i18n = {
     form_submit: 'Gửi liên hệ', form_success: '✅ Đã nhận! Chúng tôi sẽ phản hồi sớm.',
     form_name_ph: 'Họ tên / Tên công ty', form_msg_ph: 'Nhập nội dung liên hệ tại đây.',
     contact_phone_label: 'Liên hệ',
+    country_all: 'Tất cả', country_vn: 'Việt Nam', country_th: 'Thái Lan',
+    country_ph: 'Philippines', country_kh: 'Campuchia', country_np: 'Nepal',
+    country_ch: 'Trung Quốc', country_world: '🌐 Quốc tế',
     footer_tagline: 'Thuộc Asia Trade Union (ATU)\nSiêu thị thực phẩm Đông Nam Á\nTầng 1 Bến xe Jeonju',
     img_preparing: 'Hình ảnh\nSắp có',
   },
@@ -1438,6 +1448,9 @@ const i18n = {
     form_type: 'ประเภท', form_type_general: 'สอบถามทั่วไป',
     form_type_wholesale: 'ขายส่ง', form_type_buyer: 'พาร์ทเนอร์นำเข้า', form_type_etc: 'อื่นๆ',
     form_submit: 'ส่งข้อความ', form_success: '✅ ได้รับข้อความแล้ว! เราจะติดต่อกลับเร็วๆ นี้',
+    country_all: 'ทั้งหมด', country_vn: 'เวียดนาม', country_th: 'ไทย',
+    country_ph: 'ฟิลิปปินส์', country_kh: 'กัมพูชา', country_np: 'เนปาล',
+    country_ch: 'จีน', country_world: '🌐 สากล',
     form_name_ph: 'ชื่อ / บริษัทของคุณ', form_msg_ph: 'กรอกข้อความของคุณที่นี่',
     contact_phone_label: 'ติดต่อ',
     footer_tagline: 'ดำเนินการโดย Asia Trade Union (ATU)\nซูเปอร์มาร์เก็ตเอเชียตะวันออกเฉียงใต้\nชั้น 1 สถานีขนส่งเมือง จอนจู',
@@ -1539,12 +1552,21 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 });
 
 /* ─── 9-a. 국가별 CSV 파싱 ────────────────────────────────── */
+function normalizeProdName(s) {
+  // 전각/반각 특수문자 제거, 연속 공백 통일, 소문자
+  return (s || '').trim().replace(/[？?！!　]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+}
 function parseCountryCSV(text) {
   const lines = text.trim().split('\n').slice(1); // 헤더 제외
   const map = {};
   for (const line of lines) {
     const match = line.match(/^"([^"]+)","(.+)"$/);
-    if (match) map[match[2].trim()] = match[1].trim();
+    if (match) {
+      const country = match[1].trim();
+      const rawName = match[2].trim();
+      map[rawName] = country;                      // 정확 일치
+      map[normalizeProdName(rawName)] = country;   // 정규화 일치
+    }
   }
   return map;
 }
@@ -1614,8 +1636,12 @@ function getCatName(cat) {
 function getFilteredProducts() {
   let list = allProducts;
   // 국가 필터
-  if (currentCountry !== '전체') {
-    list = list.filter(p => p.country === currentCountry || p.country === 'ALL');
+  if (currentCountry === 'ALL') {
+    // World(공통) 탭: ALL 상품만
+    list = list.filter(p => p.country === 'ALL');
+  } else if (currentCountry !== '전체') {
+    // 특정 국가 탭: 해당 국가 상품만 (공통 상품 제외)
+    list = list.filter(p => p.country === currentCountry);
   }
   // 카테고리 필터
   if (currentCat !== '전체') {
@@ -1724,7 +1750,7 @@ async function loadProducts() {
       const products = parseCSV(productTxt);
       allProducts = products.map(p => ({
         ...p,
-        country: countryMap[p.name.trim()] || 'ALL'
+        country: countryMap[p.name.trim()] || countryMap[normalizeProdName(p.name)] || 'ALL'
       }));
     } catch (e) {
       console.warn('구글 시트 로딩 실패, 샘플 데이터 사용:', e);
