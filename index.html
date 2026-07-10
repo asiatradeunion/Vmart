@@ -1858,8 +1858,32 @@ window.addEventListener('scroll', () => {
 }, {passive: true});
 
 /* ─── 14. 초기화 ─────────────────────────────────────────── */
+// URL 파라미터로 언어/국가 설정 (?lang=VN&country=VN)
+(function() {
+  const p = new URLSearchParams(window.location.search);
+  const pLang = p.get('lang');
+  const pCountry = p.get('country');
+  if (pLang && i18n[pLang]) {
+    currentLang = pLang;
+    localStorage.setItem('atu_lang', pLang);
+  }
+  if (pCountry) {
+    currentCountry = pCountry;
+  }
+})();
+
 applyLang(currentLang);
-loadProducts();
+loadProducts().then(() => {
+  const p = new URLSearchParams(window.location.search);
+  const pCountry = p.get('country');
+  if (pCountry) {
+    document.querySelectorAll('.country-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.country === pCountry);
+    });
+    const sec = document.getElementById('products');
+    if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+  }
+});
 
 /* ─── 갤러리 모달 네비게이션 ─────────────────────────────────── */
 const galleryImgs = ['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg?v=3','7.jpg?v=3','8.jpg?v=3','9.jpg?v=4','10.jpg?v=3','11.jpg'];
